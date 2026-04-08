@@ -39,8 +39,6 @@ public class LoginController {
                 stage.setScene(new Scene(root));
                 stage.setTitle("Página Principal");
                 stage.show();
-
-                // Fecha a tela de login
                 usuario.getScene().getWindow().hide();
 
             } catch (IOException e) {
@@ -60,7 +58,6 @@ public class LoginController {
             }
         });
 
-        // Converte o texto da senha para minúsculo
         senha.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.equals(newValue.toLowerCase())) {
                 senha.setText(newValue.toLowerCase());
