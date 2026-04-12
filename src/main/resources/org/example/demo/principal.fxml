@@ -16,7 +16,7 @@
         <AnchorPane layoutY="42.0" prefHeight="447.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc;">
             <children>
 
-                <Button layoutX="11.0" layoutY="159.0" onAction="#abrirCadastro" prefWidth="172.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Cadastro" textAlignment="CENTER" textFill="WHITE" />
+                <Button fx:id="Cadastro" layoutX="11.0" layoutY="159.0" onAction="#abrirCadastro" prefWidth="172.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Cadastro" textAlignment="CENTER" textFill="WHITE" />
 
                 <Button layoutX="11.0" layoutY="194.0" onAction="#AbrirRelatorio" prefWidth="172.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Relatório" textAlignment="CENTER" textFill="WHITE" />
 

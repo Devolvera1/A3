@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="474.0" prefWidth="798.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.CadastroController">
+   <children>
+      <AnchorPane prefHeight="43.0" prefWidth="827.0">
+         <children>
+            <ImageView fitHeight="30.0" fitWidth="67.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/Logo.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="Fechar" layoutX="781.0" layoutY="9.0" mnemonicParsing="false" onAction="#Fechar" prefHeight="25.0" prefWidth="28.0" text="X" />
+            <Button fx:id="Minimizar" layoutX="735.0" layoutY="9.0" mnemonicParsing="false" onAction="#Minimizar" text="—" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="425.0" prefHeight="49.0" prefWidth="827.0">
+         <children>
+            <Button layoutX="682.0" layoutY="12.0" mnemonicParsing="false" text="Adicionar" />
+            <Button layoutX="616.0" layoutY="12.0" mnemonicParsing="false" text="Deletar" />
+            <Button layoutX="760.0" layoutY="12.0" mnemonicParsing="false" text="Salvar" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="43.0" prefHeight="382.0" prefWidth="827.0">
+         <children>
+            <TableView layoutX="-6.0" prefHeight="382.0" prefWidth="827.0">
+              <columns>
+                <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="Nome" prefWidth="75.0" text="Nome" />
+                  <TableColumn fx:id="CPF" prefWidth="75.0" text="CPF" />
+                  <TableColumn fx:id="Cargo" prefWidth="75.0" text="Cargo" />
+                  <TableColumn fx:id="Salario" prefWidth="75.0" text="Salário" />
+                  <TableColumn fx:id="Data" prefWidth="121.0" text="Data da Admissão" />
+                  <TableColumn fx:id="Status" prefWidth="68.0" text="Status" />
+                  <TableColumn fx:id="Departamento" prefWidth="97.0" text="Departamento" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

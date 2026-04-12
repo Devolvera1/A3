@@ -1,30 +1,37 @@
 package org.example.demo;
+
 import java.sql.*;
 
 public class Database {
 
-    private static final String URL =
-            "jdbc:mysql://127.0.0.1:3306/empresa";
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/empresa";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
 
-    public boolean authenticateUser(String username, String password) {
-        String query = "SELECT * FROM usuarios WHERE username = ? AND senha = ?";
+    public Usuario authenticateUser(String username, String password) {
+
+        String query = "SELECT username, funcao FROM usuarios WHERE username = ? AND senha = ?";
 
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement stmt = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+            stmt.setString(1, username);
+            stmt.setString(2, password);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet rs = stmt.executeQuery();
 
-            return resultSet.next();
+            if (rs.next()) {
+                return new Usuario(
+                        rs.getString("username"),
+                        rs.getString("funcao")
+                );
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+
+        return null;
     }
 
     public static Connection getConnection() throws SQLException {

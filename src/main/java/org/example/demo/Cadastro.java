@@ -3,22 +3,23 @@ package org.example.demo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class principal extends Application {
+public class Cadastro extends Application {
+
 
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/org/example/demo/principal.fxml")
+                getClass().getResource("/org/example/demo/Cadastro.fxml")
         );
 
         Scene scene = new Scene(loader.load());
         stage.centerOnScreen();
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
+
         stage.show();
     }
 
