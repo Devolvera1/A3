@@ -1,16 +1,23 @@
 package org.example.demo;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class principal extends Application {
 
     @Override
-    public void start(Stage stage) {
-        stage.setTitle("Tela Principal");
-        stage.setScene(new Scene(new Label("Bem-vindo!"), 400, 300));
+    public void start(Stage stage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/org/example/demo/principal.fxml")
+        );
+
+        Scene scene = new Scene(loader.load());
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
         stage.show();
     }
 
