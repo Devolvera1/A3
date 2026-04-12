@@ -1,5 +1,8 @@
 package org.example.demo;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
 
 public class Database {
@@ -32,6 +35,32 @@ public class Database {
         }
 
         return null;
+    }
+
+    public ObservableList<Funcionario> getFuncionarios() {
+        ObservableList<Funcionario> lista = FXCollections.observableArrayList();
+        String query = "SELECT * FROM funcionarios";
+
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                lista.add(new Funcionario(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("cpf"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        rs.getString("cargo"),
+                        rs.getDouble("salario"),
+                        rs.getString("status")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
     }
 
     public static Connection getConnection() throws SQLException {
