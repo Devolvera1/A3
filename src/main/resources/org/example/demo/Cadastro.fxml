@@ -6,6 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
 
 <AnchorPane prefHeight="474.0" prefWidth="798.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.CadastroController">
    <children>
@@ -16,15 +17,28 @@
                   <Image url="@img/Logo.png" />
                </image>
             </ImageView>
-            <Button fx:id="Fechar" layoutX="781.0" layoutY="9.0" mnemonicParsing="false" onAction="#Fechar" prefHeight="25.0" prefWidth="28.0" text="X" />
-            <Button fx:id="Minimizar" layoutX="735.0" layoutY="9.0" mnemonicParsing="false" onAction="#Minimizar" text="—" />
+            <Button fx:id="Fechar" layoutX="782.0" layoutY="9.0" mnemonicParsing="false" onAction="#Fechar" prefHeight="25.0" prefWidth="28.0" text="X" />
+            <Button fx:id="Minimizar" layoutX="744.0" layoutY="9.0" mnemonicParsing="false" onAction="#Minimizar" text="—" />
+            <Button fx:id="Voltar" layoutX="709.0" layoutY="9.0" mnemonicParsing="false" onAction="#Voltar" text="&lt;" />
+            <Button fx:id="Reload" layoutX="666.0" layoutY="9.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0">
+               <graphic>
+                  <ImageView fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Img/reload.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane layoutY="425.0" prefHeight="49.0" prefWidth="827.0">
          <children>
-            <Button fx:id="Adicionar" layoutX="682.0" layoutY="12.0" mnemonicParsing="false" text="Adicionar" />
-            <Button layoutX="616.0" layoutY="12.0" mnemonicParsing="false" text="Deletar" />
-            <Button layoutX="760.0" layoutY="12.0" mnemonicParsing="false" text="Salvar" />
+            <Button fx:id="Adicionar" layoutX="738.0" layoutY="12.0" mnemonicParsing="false" onAction="#Adicionar" text="Adicionar" />
+            <Button fx:id="Deletar" layoutX="616.0" layoutY="12.0" mnemonicParsing="false" text="Deletar" />
+            <Button fx:id="Editar" layoutX="681.0" layoutY="12.0" mnemonicParsing="false" text="Editar" />
+            <Circle fill="DODGERBLUE" layoutX="31.0" layoutY="25.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="#ffbd1f" layoutX="54.0" layoutY="25.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="#60d028" layoutX="74.0" layoutY="25.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
          </children>
       </AnchorPane>
       <AnchorPane layoutY="43.0" prefHeight="382.0" prefWidth="827.0">
