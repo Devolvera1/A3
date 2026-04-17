@@ -10,29 +10,36 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AdicionarController {
+public class EditarController {
 
     @FXML private TextField Id, Nome, Cpf, Email, Telefone, Cargo, Salario;
     @FXML private ComboBox<String> Status;
 
     @FXML
     public void initialize() {
-
-        Status.getItems().addAll("Ativo");
-        Status.setValue("Ativo");
+        Status.getItems().addAll("Ativo", "Inativo", "Em Experiência", "Afastada");
         Id.setDisable(true);
+    }
+
+    public void setFuncionario(Funcionario f) {
+        Id.setText(String.valueOf(f.id().get()));
+        Nome.setText(f.nome().get());
+        Cpf.setText(f.CPF().get());
+        Email.setText(f.email().get());
+        Telefone.setText(f.telefone().get());
+        Cargo.setText(f.cargo().get());
+        Salario.setText(String.valueOf(f.salario().get()));
+        Status.setValue(f.status().get());
     }
 
     @FXML
     private void Ok(ActionEvent event) {
-
         if (Nome.getText().isEmpty() || Cpf.getText().isEmpty() || Salario.getText().isEmpty()) {
             exibirAlerta("Erro", "Preencha os campos obrigatórios!");
             return;
         }
 
-        String sql = "INSERT INTO funcionarios (nome, cpf, email, telefone, cargo, salario, status, data_admissao, departamento_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, CURDATE(), 1)";
+        String sql = "UPDATE funcionarios SET nome=?, cpf=?, email=?, telefone=?, cargo=?, salario=?, status=? WHERE id=?";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -43,15 +50,15 @@ public class AdicionarController {
             pstmt.setString(4, Telefone.getText());
             pstmt.setString(5, Cargo.getText());
 
-
             double salario = Double.parseDouble(Salario.getText().replace(",", "."));
             pstmt.setDouble(6, salario);
-
             pstmt.setString(7, Status.getValue());
+
+            pstmt.setInt(8, Integer.parseInt(Id.getText()));
 
             pstmt.executeUpdate();
 
-            exibirAlerta("Sucesso", "Funcionário cadastrado com sucesso!");
+            exibirAlerta("Sucesso", "Funcionário atualizado com sucesso!");
             Fechar(event);
 
         } catch (SQLException e) {

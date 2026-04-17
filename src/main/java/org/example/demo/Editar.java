@@ -4,15 +4,14 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-public class Adicionar extends Application {
+public class Editar extends Application {
 
 
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/org/example/demo/Adicionar.fxml")
+                getClass().getResource("/org/example/demo/Editar.fxml")
         );
 
         Scene scene = new Scene(loader.load());

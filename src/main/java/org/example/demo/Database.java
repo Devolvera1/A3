@@ -36,6 +36,22 @@ public class Database {
 
         return null;
     }
+    public boolean deletarFuncionario(int id) {
+        String sql = "DELETE FROM funcionarios WHERE id = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+
+            return pstmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     public ObservableList<Funcionario> getFuncionarios() {
         ObservableList<Funcionario> lista = FXCollections.observableArrayList();
@@ -46,6 +62,8 @@ public class Database {
              ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
+                java.sql.Date sqlDate = rs.getDate("data_admissao");
+                java.time.LocalDate dataLocal = (sqlDate != null) ? sqlDate.toLocalDate() : null;
                 lista.add(new Funcionario(
                         rs.getInt("id"),
                         rs.getString("nome"),
@@ -54,7 +72,8 @@ public class Database {
                         rs.getString("telefone"),
                         rs.getString("cargo"),
                         rs.getDouble("salario"),
-                        rs.getString("status")
+                        rs.getString("status"),
+                        dataLocal
                 ));
             }
         } catch (SQLException e) {
@@ -62,6 +81,7 @@ public class Database {
         }
         return lista;
     }
+
 
 
     public static Connection getConnection() throws SQLException {

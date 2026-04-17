@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -28,10 +30,12 @@ public class PrincipalController {
     private final DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
 
+
     @FXML
     public void initialize() {
         iniciarRelogio();
     }
+
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
@@ -69,14 +73,14 @@ public class PrincipalController {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/Cadastro.fxml"));
         Parent root = loader.load();
-
-        Stage stage = (Stage) ((Node) event.getSource())
-                .getScene().getWindow();
-
-        stage.setScene(new Scene(root));
+        Stage Stage = new Stage();
+        Stage.setTitle("Cadastro");
+        Stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
+        Stage.setScene(new Scene(root));
+        Stage.show();
     }
 
-    @FXML
+        @FXML
     private void AbrirRelatorio(ActionEvent event) {
         System.out.println("Relatório");
     }
@@ -97,17 +101,9 @@ public class PrincipalController {
     }
 
     @FXML
-    private void fecharJanela(ActionEvent event) {
-        ((Stage)((Node)event.getSource()).getScene().getWindow()).close();
-    }
-
-    @FXML
-    private void minimizarJanela(ActionEvent event) {
-        ((Stage)((Node)event.getSource()).getScene().getWindow()).setIconified(true);
-    }
-
-    @FXML
     private void Sair(ActionEvent event) {
         System.exit(0);
     }
+
+
 }

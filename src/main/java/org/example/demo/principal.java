@@ -3,9 +3,8 @@ package org.example.demo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class principal extends Application {
 
@@ -14,13 +13,13 @@ public class principal extends Application {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/org/example/demo/principal.fxml")
         );
-
         Scene scene = new Scene(loader.load());
-        stage.centerOnScreen();
-        stage.initStyle(StageStyle.UNDECORATED);
+
+        stage.setTitle("Sistema de Gerenciamento CoreRH 1.0");
         stage.setScene(scene);
         stage.show();
     }
+
 
     public static void main(String[] args) {
         launch(args);

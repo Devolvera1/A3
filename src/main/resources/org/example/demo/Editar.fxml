@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="317.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.EditarController">
+    <children>
+        <AnchorPane layoutX="-3.0" layoutY="18.0" prefHeight="270.0" prefWidth="600.0" style="-fx-background-color: #ffffff;">
+            <children>
+                <TextField fx:id="Id" editable="false" layoutX="69.0" layoutY="36.0" />
+                <Text layoutX="69.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
+                <TextField fx:id="Nome" layoutX="69.0" layoutY="91.0" />
+                <TextField fx:id="Cpf" layoutX="69.0" layoutY="151.0" />
+                <Text layoutX="69.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Nome" />
+                <Text layoutX="70.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* CPF (11 números)" />
+                <TextField fx:id="Email" layoutX="382.0" layoutY="36.0" />
+                <Text layoutX="380.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* E-mail" />
+                <TextField fx:id="Telefone" layoutX="382.0" layoutY="91.0" />
+                <TextField fx:id="Cargo" layoutX="382.0" layoutY="151.0" />
+                <Text layoutX="382.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Telefone (20 Números)" />
+                <Text layoutX="381.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Cargo" />
+                <TextField fx:id="Salario" layoutX="69.0" layoutY="215.0" />
+                <Text layoutX="67.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Salário (8 Digitos)" />
+                <Text layoutX="382.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
+                <ComboBox fx:id="Status" layoutX="382.0" layoutY="215.0" prefWidth="150.0" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutY="274.0" prefHeight="44.0" prefWidth="600.0" style="-fx-background-color: #f0f0f0;">
+            <children>
+                <Circle fill="DODGERBLUE" layoutX="20.0" layoutY="23.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+                <Button fx:id="Ok" layoutX="554.0" layoutY="10.0" mnemonicParsing="false" onAction="#Ok" text="Ok" />
+                <Button fx:id="Cancelar" layoutX="481.0" layoutY="10.0" mnemonicParsing="false" onAction="#Cancelar" text="Cancelar" />
+                <Circle fill="#ffbd1f" layoutX="41.0" layoutY="23.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+                <Circle fill="#60d028" layoutX="61.0" layoutY="23.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

@@ -1,6 +1,7 @@
 package org.example.demo;
 
 import javafx.beans.property.*;
+import java.time.LocalDate;
 
 public class Funcionario {
     private final IntegerProperty id;
@@ -11,8 +12,9 @@ public class Funcionario {
     private final StringProperty cargo;
     private final DoubleProperty salario;
     private final StringProperty status;
+    private final ObjectProperty<LocalDate> data_admissao;
 
-    public Funcionario(int id, String nome, String cpf,String email, String telefone, String cargo, double salario, String status) {
+    public Funcionario(int id, String nome, String cpf, String email, String telefone, String cargo, double salario, String status, LocalDate data_admissao) {
         this.id = new SimpleIntegerProperty(id);
         this.nome = new SimpleStringProperty(nome);
         this.cpf = new SimpleStringProperty(cpf);
@@ -21,6 +23,7 @@ public class Funcionario {
         this.cargo = new SimpleStringProperty(cargo);
         this.salario = new SimpleDoubleProperty(salario);
         this.status = new SimpleStringProperty(status);
+        this.data_admissao = new SimpleObjectProperty<>(data_admissao);
     }
 
     public IntegerProperty id() { return id; }
@@ -31,4 +34,5 @@ public class Funcionario {
     public StringProperty cargo() { return cargo; }
     public DoubleProperty salario() { return salario; }
     public StringProperty status() { return status; }
+    public ObjectProperty<LocalDate> data_admissao() { return data_admissao; }
 }

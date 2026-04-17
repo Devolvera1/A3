@@ -15,11 +15,10 @@ public class Cadastro extends Application {
                 getClass().getResource("/org/example/demo/Cadastro.fxml")
         );
 
-        Scene scene = new Scene(loader.load());
-        stage.centerOnScreen();
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setScene(scene);
 
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     }
 
