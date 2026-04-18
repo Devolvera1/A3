@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.MarcaPontoController">
+   <children>
+      <AnchorPane prefHeight="511.0" prefWidth="238.0" style="-fx-background-color: #e8ebed;">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="19.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Img/logo.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="81.0" layoutY="448.0" mnemonicParsing="false" text="REGISTRAR" />
+            <TextField layoutX="45.0" layoutY="362.0" promptText="USÚARIO" />
+            <TextField layoutX="45.0" layoutY="401.0" promptText="SENHA" />
+            <Line endX="100.0" layoutX="119.0" layoutY="339.0" startX="-100.0" />
+            <AnchorPane layoutX="-1.0" layoutY="19.0" prefHeight="511.0" prefWidth="238.0" style="-fx-background-color: #e8ebed;">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="19.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Img/logo.png" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="81.0" layoutY="448.0" mnemonicParsing="false" onAction="#handleRegistrar" text="REGISTRAR" />
+                  <TextField fx:id="txtUsuario" layoutX="45.0" layoutY="362.0" promptText="USÚARIO" />
+                  <TextField fx:id="txtSenha" layoutX="45.0" layoutY="401.0" promptText="SENHA" />
+                  <Line endX="100.0" layoutX="119.0" layoutY="339.0" startX="-100.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="238.0" prefHeight="530.0" prefWidth="363.0">
+         <children>
+            <Text fx:id="lblData" layoutX="161.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATA">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Line endX="-101.0" endY="530.0" layoutX="101.0" startX="-100.0" />
+            <Text fx:id="lblRelogio" layoutX="143.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HH:MM:SS">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text layoutX="56.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="REGISTRO ELETRÔNICO DE PONTO">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

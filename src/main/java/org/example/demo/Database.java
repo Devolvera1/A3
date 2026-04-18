@@ -82,7 +82,67 @@ public class Database {
         return lista;
     }
 
+    public String registrarPonto(String username, String password) {
+        String authQuery = "SELECT funcionario_id FROM usuarios WHERE username = ? AND senha = ?";
+        String pontoQuery = "SELECT * FROM registroPonto WHERE funcionario_id = ? AND data_registro = CURDATE()";
 
+        try (Connection conn = getConnection()) {
+            int funcionarioId = -1;
+            try (PreparedStatement pstmt = conn.prepareStatement(authQuery)) {
+                pstmt.setString(1, username);
+                pstmt.setString(2, password);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    funcionarioId = rs.getInt("funcionario_id");
+                } else {
+                    return "Usuário ou senha inválidos!";
+                }
+            }
+
+            try (PreparedStatement pstmt = conn.prepareStatement(pontoQuery,
+                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+                pstmt.setInt(1, funcionarioId);
+                ResultSet rs = pstmt.executeQuery();
+
+                Time agora = new Time(System.currentTimeMillis());
+
+                if (!rs.next()) {
+                    String insert = "INSERT INTO registroPonto (funcionario_id, data_registro, entrada, status) VALUES (?, CURDATE(), ?, 'PENDENTE')";
+                    try (PreparedStatement insStmt = conn.prepareStatement(insert)) {
+                        insStmt.setInt(1, funcionarioId);
+                        insStmt.setTime(2, agora);
+                        insStmt.executeUpdate();
+                        return "Entrada registrada às " + agora;
+                    }
+                } else {
+                    String colunaUpdate = "";
+                    if (rs.getTime("saida_almoco") == null) {
+                        colunaUpdate = "saida_almoco";
+                    } else if (rs.getTime("retorno_almoco") == null) {
+                        colunaUpdate = "retorno_almoco";
+                    } else if (rs.getTime("saida") == null) {
+                        colunaUpdate = "saida";
+                    } else {
+                        return "Todos os pontos de hoje já foram registrados!";
+                    }
+
+                    String update = "UPDATE registroPonto SET " + colunaUpdate + " = ?, status = ? WHERE id = ?";
+                    String novoStatus = colunaUpdate.equals("saida") ? "COMPLETO" : "PENDENTE";
+
+                    try (PreparedStatement updStmt = conn.prepareStatement(update)) {
+                        updStmt.setTime(1, agora);
+                        updStmt.setString(2, novoStatus);
+                        updStmt.setInt(3, rs.getInt("id"));
+                        updStmt.executeUpdate();
+                        return colunaUpdate.replace("_", " ") + " registrada às " + agora;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Erro no banco de dados.";
+        }
+    }
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
