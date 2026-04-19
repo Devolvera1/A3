@@ -12,11 +12,11 @@ public class RegistroPonto {
     private final StringProperty saida2 = new SimpleStringProperty();
     private final StringProperty observacao = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
-
     private final StringProperty nomeFuncionario = new SimpleStringProperty();
 
-    public RegistroPonto(int ID, String nome, String data, String ent1,  String sai1, String ent2, String sai2, String obs,String status) {
-        this.funcionario_id.set(ID);
+    public RegistroPonto(int ID, int funcID, String nome, String data, String ent1, String sai1, String ent2, String sai2, String obs, String status) {
+        this.ID.set(ID);
+        this.funcionario_id.set(funcID);
         this.nomeFuncionario.set(nome);
         this.data.set(data);
         this.entrada.set(ent1);
@@ -27,11 +27,12 @@ public class RegistroPonto {
         this.status.set(status);
     }
 
-    public StringProperty nomeFuncionarioProperty() { return nomeFuncionario; }
-
-
-    public IntegerProperty id() { return ID; }
+    public int getId() { return ID.get(); }
+    public String getData() { return data.get(); }
+    public String getNomeFuncionario() { return nomeFuncionario.get(); }
+    public IntegerProperty idProperty() { return ID; }
     public IntegerProperty funcionarioIDProperty() { return funcionario_id; }
+    public StringProperty nomeFuncionarioProperty() { return nomeFuncionario; }
     public StringProperty dataProperty() { return data; }
     public StringProperty entradaProperty() { return entrada; }
     public StringProperty saidaProperty() { return saida; }
@@ -39,6 +40,4 @@ public class RegistroPonto {
     public StringProperty saida2Property() { return saida2; }
     public StringProperty observacaoProperty() { return observacao; }
     public StringProperty statusProperty() { return status; }
-
-
 }

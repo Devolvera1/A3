@@ -35,4 +35,19 @@ public class Funcionario {
     public DoubleProperty salario() { return salario; }
     public StringProperty status() { return status; }
     public ObjectProperty<LocalDate> data_admissao() { return data_admissao; }
+
+    public Funcionario(int id, String nome) {
+        this(id, nome, null, null, null, null, 0.0, null, null);
+    }
+    public int getId() { return id.get(); }
+    public String getNome() { return nome.get(); }
+    public IntegerProperty idProperty() { return id; }
+    public StringProperty nomeProperty() { return nome; }
+
+    @Override
+    public String toString() {
+        return getNome();
+    }
 }
+
+

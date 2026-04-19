@@ -1,9 +1,6 @@
 package org.example.demo;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,48 +10,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-
 
 public class EspelhoPontoController implements Initializable {
     private final Database db = new Database();
     private Usuario usuarioLogado;
 
+    @FXML private TableView<RegistroPonto> tabelaPonto;
+    @FXML private Button Adicionar, Editar, Deletar;
 
-    @FXML
-    private TableView<RegistroPonto> tabelaPonto;
-
-    @FXML
-    private Button Adicionar;
-    @FXML
-    private Button Editar;
-    @FXML
-    private Button Deletar;
-    @FXML
-    private TableColumn<RegistroPonto, Integer> colFuncID;
-    @FXML
-    private TableColumn<RegistroPonto, String> colNome;
-    @FXML
-    private TableColumn<RegistroPonto, String> colData;
-    @FXML
-    private TableColumn<RegistroPonto, String> colEntrada;
-    @FXML
-    private TableColumn<RegistroPonto, String> colSaida;
-    @FXML
-    private TableColumn<RegistroPonto, String> colEntrada2;
-    @FXML
-    private TableColumn<RegistroPonto, String> colSaida2;
-    @FXML
-    private TableColumn<RegistroPonto, String> colObs;
-    @FXML
-    private TableColumn<RegistroPonto, String> colStatus;
+    @FXML private TableColumn<RegistroPonto, Integer> colFuncID;
+    @FXML private TableColumn<RegistroPonto, String> colNome, colData, colEntrada, colSaida, colEntrada2, colSaida2, colObs, colStatus;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -67,15 +36,23 @@ public class EspelhoPontoController implements Initializable {
         colSaida2.setCellValueFactory(c -> c.getValue().saida2Property());
         colObs.setCellValueFactory(c -> c.getValue().observacaoProperty());
         colStatus.setCellValueFactory(c -> c.getValue().statusProperty());
+
+        tabelaPonto.setRowFactory(tv -> {
+            TableRow<RegistroPonto> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    Deletar(new ActionEvent());
+                }
+            });
+            return row;
+        });
     }
 
     public void setUsuario(Usuario user) {
         this.usuarioLogado = user;
         if (user != null) {
             tabelaPonto.setItems(db.getPontosPorPerfil(user));
-
             boolean naoEhAdmin = !user.getFuncao().equalsIgnoreCase("ADMIN");
-
             Adicionar.setDisable(naoEhAdmin);
             Editar.setDisable(naoEhAdmin);
             Deletar.setDisable(naoEhAdmin);
@@ -83,27 +60,63 @@ public class EspelhoPontoController implements Initializable {
     }
 
     @FXML
-    private void Adicionar (ActionEvent event) {
-        System.out.println("AA");
-    };
+    private void Adicionar(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/AdicionarEspelho.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private void Editar(ActionEvent event) {
-        System.out.println("AA");
-    };
+        System.out.println("Lógica de edição");
+    }
+
     @FXML
     private void Deletar(ActionEvent event) {
-        System.out.println("AA");
-    };
+        RegistroPonto selecionado = tabelaPonto.getSelectionModel().getSelectedItem();
 
+        if (selecionado == null) {
+            exibirAlerta("Atenção", "Selecione um registro na tabela para excluir!", Alert.AlertType.WARNING);
+            return;
+        }
 
+        Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacao.setTitle("Confirmar Exclusão");
+        confirmacao.setHeaderText(null);
+        confirmacao.setContentText("Deseja realmente deletar o ponto do dia " + selecionado.getData() + "?");
+
+        confirmacao.showAndWait().ifPresent(resposta -> {
+            if (resposta == ButtonType.OK) {
+                if (db.deletarPonto(selecionado.getId())) {
+                    tabelaPonto.getItems().remove(selecionado);
+                    exibirAlerta("Sucesso!", "Registro removido!", Alert.AlertType.INFORMATION);
+                } else {
+                    exibirAlerta("Erro", "Erro ao excluir do banco de dados.", Alert.AlertType.ERROR);
+                }
+            }
+        });
+    }
+
+    private void exibirAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
 
     @FXML
     private void Reload(ActionEvent event) {
         if (this.usuarioLogado != null) {
-            ObservableList<RegistroPonto> dadosAtualizados = db.getPontosPorPerfil(this.usuarioLogado);
-            tabelaPonto.setItems(dadosAtualizados);
+            tabelaPonto.setItems(db.getPontosPorPerfil(this.usuarioLogado));
             tabelaPonto.refresh();
         }
-
     }
 }

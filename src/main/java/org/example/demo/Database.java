@@ -165,6 +165,7 @@ public class Database {
             while (rs.next()) {
                 lista.add(new RegistroPonto(
                         rs.getInt("funcionario_id"),
+                        rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("data_registro"),
                         rs.getString("entrada"),
@@ -179,6 +180,21 @@ public class Database {
             e.printStackTrace();
         }
         return lista;
+    }
+
+    public boolean deletarPonto(int id) {
+        String sql = "DELETE FROM registroPonto WHERE id = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            return pstmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 
