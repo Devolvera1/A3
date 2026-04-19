@@ -56,7 +56,6 @@ public class LoginController {
                 showAlert("Erro", "Não foi possível carregar a tela principal.");
             }
         } else {
-            // 3. Caso o login falhe (usuário ou senha incorretos)
             showAlert("Erro de Login", "Usuário ou senha inválidos.");
             }
         }

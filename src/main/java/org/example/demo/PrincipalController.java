@@ -6,7 +6,6 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -82,7 +81,20 @@ public class PrincipalController {
 
     @FXML
     private void EspelhoPonto(ActionEvent event) {
-        System.out.println("Relatório");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/EspelhoPonto.fxml"));
+            Parent root = loader.load();
+            EspelhoPontoController controller = loader.getController();
+            controller.setUsuario(this.usuario);
+            Stage stage = new Stage();
+            stage.setTitle("Espelho de ponto");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

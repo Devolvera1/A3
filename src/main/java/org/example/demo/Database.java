@@ -12,8 +12,8 @@ public class Database {
     private static final String PASSWORD = "root";
 
     public Usuario authenticateUser(String username, String password) {
-
-        String query = "SELECT username, funcao FROM usuarios WHERE username = ? AND senha = ?";
+        // ADICIONEI 'funcionario_id' NA QUERY ABAIXO:
+        String query = "SELECT funcionario_id, username, funcao FROM usuarios WHERE username = ? AND senha = ?";
 
         try (Connection connection = getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -25,6 +25,7 @@ public class Database {
 
             if (rs.next()) {
                 return new Usuario(
+                        rs.getInt("funcionario_id"),
                         rs.getString("username"),
                         rs.getString("funcao")
                 );
@@ -33,7 +34,6 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
     }
     public boolean deletarFuncionario(int id) {
@@ -143,6 +143,43 @@ public class Database {
             return "Erro no banco de dados.";
         }
     }
+
+    public ObservableList<RegistroPonto> getPontosPorPerfil(Usuario user) {
+        ObservableList<RegistroPonto> lista = FXCollections.observableArrayList();
+        boolean isAdmin = user.getFuncao().equalsIgnoreCase("ADMIN");
+
+        String sql = "SELECT p.*, f.nome FROM registroPonto p " +
+                "INNER JOIN funcionarios f ON p.funcionario_id = f.id";
+
+        if (!isAdmin) {
+            sql += " WHERE p.funcionario_id = ?";
+        }
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            if (!isAdmin) {
+                pstmt.setInt(1, user.getId());
+            }
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                lista.add(new RegistroPonto(
+                        rs.getInt("funcionario_id"),
+                        rs.getString("nome"),
+                        rs.getString("data_registro"),
+                        rs.getString("status")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+
+
+
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
