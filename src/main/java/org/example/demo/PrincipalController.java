@@ -7,6 +7,7 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -137,7 +138,21 @@ public class PrincipalController {
 
     @FXML
     private void Sair(ActionEvent event) {
-        System.exit(0);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/Login.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
+            stage.setScene(new Scene(root));
+            stage.show();
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

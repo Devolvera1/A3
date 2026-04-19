@@ -12,7 +12,6 @@ public class Database {
     private static final String PASSWORD = "root";
 
     public Usuario authenticateUser(String username, String password) {
-        // ADICIONEI 'funcionario_id' NA QUERY ABAIXO:
         String query = "SELECT funcionario_id, username, funcao FROM usuarios WHERE username = ? AND senha = ?";
 
         try (Connection connection = getConnection();
@@ -168,7 +167,12 @@ public class Database {
                         rs.getInt("funcionario_id"),
                         rs.getString("nome"),
                         rs.getString("data_registro"),
-                        rs.getString("status")
+                        rs.getString("entrada"),
+                        rs.getString("saida_almoco"),
+                        rs.getString("retorno_almoco"),
+                        rs.getString("saida"),
+                        rs.getString("status"),
+                        rs.getString("Observacao")
                 ));
             }
         } catch (SQLException e) {

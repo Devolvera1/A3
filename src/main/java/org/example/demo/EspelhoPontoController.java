@@ -17,6 +17,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -29,12 +30,29 @@ public class EspelhoPontoController implements Initializable {
 
     @FXML
     private TableView<RegistroPonto> tabelaPonto;
+
+    @FXML
+    private Button Adicionar;
+    @FXML
+    private Button Editar;
+    @FXML
+    private Button Deletar;
     @FXML
     private TableColumn<RegistroPonto, Integer> colFuncID;
     @FXML
     private TableColumn<RegistroPonto, String> colNome;
     @FXML
     private TableColumn<RegistroPonto, String> colData;
+    @FXML
+    private TableColumn<RegistroPonto, String> colEntrada;
+    @FXML
+    private TableColumn<RegistroPonto, String> colSaida;
+    @FXML
+    private TableColumn<RegistroPonto, String> colEntrada2;
+    @FXML
+    private TableColumn<RegistroPonto, String> colSaida2;
+    @FXML
+    private TableColumn<RegistroPonto, String> colObs;
     @FXML
     private TableColumn<RegistroPonto, String> colStatus;
 
@@ -43,20 +61,49 @@ public class EspelhoPontoController implements Initializable {
         colFuncID.setCellValueFactory(c -> c.getValue().funcionarioIDProperty().asObject());
         colNome.setCellValueFactory(c -> c.getValue().nomeFuncionarioProperty());
         colData.setCellValueFactory(c -> c.getValue().dataProperty());
+        colEntrada.setCellValueFactory(c -> c.getValue().entradaProperty());
+        colSaida.setCellValueFactory(c -> c.getValue().saidaProperty());
+        colEntrada2.setCellValueFactory(c -> c.getValue().entrada2Property());
+        colSaida2.setCellValueFactory(c -> c.getValue().saida2Property());
+        colObs.setCellValueFactory(c -> c.getValue().observacaoProperty());
         colStatus.setCellValueFactory(c -> c.getValue().statusProperty());
     }
 
     public void setUsuario(Usuario user) {
         this.usuarioLogado = user;
         if (user != null) {
-            System.out.println("Logado como: " + user.getUsername() + " | ID: " + user.getId());
             tabelaPonto.setItems(db.getPontosPorPerfil(user));
+
+            boolean naoEhAdmin = !user.getFuncao().equalsIgnoreCase("ADMIN");
+
+            Adicionar.setDisable(naoEhAdmin);
+            Editar.setDisable(naoEhAdmin);
+            Deletar.setDisable(naoEhAdmin);
         }
     }
 
+    @FXML
+    private void Adicionar (ActionEvent event) {
+        System.out.println("AA");
+    };
+    @FXML
+    private void Editar(ActionEvent event) {
+        System.out.println("AA");
+    };
+    @FXML
+    private void Deletar(ActionEvent event) {
+        System.out.println("AA");
+    };
 
 
-    private void Reload (ActionEvent event) {
-        System.out.println("Reload");
+
+    @FXML
+    private void Reload(ActionEvent event) {
+        if (this.usuarioLogado != null) {
+            ObservableList<RegistroPonto> dadosAtualizados = db.getPontosPorPerfil(this.usuarioLogado);
+            tabelaPonto.setItems(dadosAtualizados);
+            tabelaPonto.refresh();
+        }
+
     }
 }
