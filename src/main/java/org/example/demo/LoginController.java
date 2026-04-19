@@ -17,6 +17,13 @@ public class LoginController {
     @FXML
     private PasswordField senha;
 
+    private void showAlert(String titulo, String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
     @FXML
     private void onOkButtonClick(ActionEvent event) {
         String username = usuario.getText();
@@ -43,11 +50,17 @@ public class LoginController {
 
                 stage.show();
 
+
             } catch (IOException e) {
                 e.printStackTrace();
+                showAlert("Erro", "Não foi possível carregar a tela principal.");
+            }
+        } else {
+            // 3. Caso o login falhe (usuário ou senha incorretos)
+            showAlert("Erro de Login", "Usuário ou senha inválidos.");
             }
         }
-    }
+
 
     @FXML
     private void onCancelButtonClick(ActionEvent event) {

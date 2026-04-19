@@ -80,15 +80,38 @@ public class PrincipalController {
         Stage.show();
     }
 
-        @FXML
-    private void AbrirRelatorio(ActionEvent event) {
+    @FXML
+    private void EspelhoPonto(ActionEvent event) {
         System.out.println("Relatório");
     }
 
     @FXML
-    private void AbrirDepartamento(ActionEvent event) {
+    private void RegistroPonto(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/MarcaPonto.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Registro de ponto");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    @FXML
+    private void DemostrativoPagamentos(ActionEvent event) {
         System.out.println("Departamento");
     }
+    @FXML
+    private void ReciboFerias(ActionEvent event) {
+        System.out.println("Departamento");
+    }
+
 
     @FXML
     private void AbrirConfiguracoes(ActionEvent event) {

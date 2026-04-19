@@ -11,85 +11,99 @@
 <AnchorPane minHeight="600.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.PrincipalController">
     <children>
 
-        <!-- MENU LATERAL ESQUERDO -->
-        <AnchorPane prefWidth="200.0" style="-fx-background-color: #3a7bfc;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane prefHeight="1118.0" prefWidth="234.0" style="-fx-background-color: #3a7bfc;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Label layoutX="61.0" layoutY="115.0" text="Welcome" textFill="WHITE">
+            <Button layoutX="12.0" layoutY="290.0" onAction="#EspelhoPonto" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Espelho de ponto" textAlignment="CENTER" textFill="WHITE" />
+                <Label layoutX="80.0" layoutY="115.0" text="Welcome" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="17.0" />
                     </font>
                 </Label>
 
-                <Label fx:id="labelUsuario" alignment="CENTER" layoutX="11.0" layoutY="141.0" prefHeight="30.0" prefWidth="172.0" textAlignment="CENTER" textFill="WHITE">
+                <Label fx:id="labelUsuario" alignment="CENTER" layoutX="31.0" layoutY="141.0" prefHeight="30.0" prefWidth="172.0" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
 
-                <Line endX="88.0" layoutX="96.0" layoutY="183.0" startX="-82.5" stroke="WHITE" />
+                <Line endX="114.0" layoutX="96.0" layoutY="183.0" startX="-82.5" stroke="WHITE" />
 
-                <ImageView fitHeight="69.0" fitWidth="125.0" layoutX="62.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="69.0" fitWidth="125.0" layoutX="81.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@img/usr.jpg" />
+                        <Image url="@Img/usr.jpg" />
                     </image>
                 </ImageView>
 
-                <Button fx:id="Cadastro" layoutX="14.0" layoutY="210.0" onAction="#abrirCadastro" prefHeight="30.0" prefWidth="172.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Cadastro" textAlignment="CENTER" textFill="WHITE" />
-                <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="22.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true">
+                <Button fx:id="Cadastro" layoutX="14.0" layoutY="210.0" onAction="#abrirCadastro" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Cadastro" textAlignment="CENTER" textFill="WHITE" />
+                <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="22.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@img/Cadastro.png" />
+                        <Image url="@Img/Cadastro.png" />
                     </image>
                 </ImageView>
 
-                <Button layoutX="14.0" layoutY="250.0" onAction="#AbrirRelatorio" prefHeight="30.0" prefWidth="172.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Relatório" textAlignment="CENTER" textFill="WHITE" />
-                <ImageView fitHeight="18.0" fitWidth="23.0" layoutX="22.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
+                <Button layoutX="14.0" layoutY="250.0" onAction="#EspelhoPonto" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Espelho de ponto" textAlignment="CENTER" textFill="WHITE" />
+
+                <Button layoutX="14.0" layoutY="250.0" onAction="#DemostrativoPagamentos" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Demostrativo de pagamento" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
+                <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="23.0" layoutY="297.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@img/Relatorio.png" />
+                        <Image url="@Img/Relogio.png" />
                     </image>
                 </ImageView>
 
-                <Button layoutX="14.0" layoutY="290.0" onAction="#AbrirDepartamento" prefHeight="30.0" prefWidth="172.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Departamentos" textAlignment="CENTER" textFill="WHITE" />
-                <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="22.0" layoutY="296.0" pickOnBounds="true" preserveRatio="true">
+                <Button layoutX="14.0" layoutY="410.0" onAction="#AbrirConfiguracoes" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Configurações" textAlignment="CENTER" textFill="WHITE" />
+                <ImageView fitHeight="18.0" fitWidth="23.0" layoutX="22.0" layoutY="416.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@img/Departamentos.png" />
+                        <Image url="@Img/configuracoes.png" />
                     </image>
                 </ImageView>
 
-                <Button layoutX="14.0" layoutY="330.0" onAction="#AbrirConfiguracoes" prefHeight="30.0" prefWidth="172.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Configurações" textAlignment="CENTER" textFill="WHITE" />
-                <ImageView fitHeight="18.0" fitWidth="23.0" layoutX="22.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
+                <Button layoutX="14.0" layoutY="450.0" onAction="#AbrirSobre" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Sobre" textAlignment="CENTER" textFill="WHITE" />
+                <ImageView fitHeight="18.0" fitWidth="23.0" layoutX="22.0" layoutY="456.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@img/configuracoes.png" />
+                        <Image url="@Img/info.png" />
                     </image>
                 </ImageView>
 
-                <Button layoutX="14.0" layoutY="370.0" onAction="#AbrirSobre" prefHeight="30.0" prefWidth="172.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Sobre" textAlignment="CENTER" textFill="WHITE" />
-                <ImageView fitHeight="18.0" fitWidth="23.0" layoutX="22.0" layoutY="376.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@img/info.png" />
-                    </image>
-                </ImageView>
-
-                <Button layoutX="14.0" onAction="#Sair" prefHeight="30.0" prefWidth="172.0" style="-fx-background-color: #fc0000; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Sair" textFill="WHITE" AnchorPane.bottomAnchor="20.0" />
+                <Button layoutX="14.0" onAction="#Sair" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #fc0000; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Sair" textFill="WHITE" AnchorPane.bottomAnchor="20.0" />
                 <ImageView fitHeight="18.0" fitWidth="27.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="26.0">
                     <image>
-                        <Image url="@img/exit.png" />
+                        <Image url="@Img/exit.png" />
+                    </image>
+                </ImageView>
+            <Button layoutX="14.0" layoutY="370.0" onAction="#RegistroPonto" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Registro de Ponto" textAlignment="CENTER" textFill="WHITE" />
+            <ImageView fitHeight="18.0" fitWidth="23.0" layoutX="22.0" layoutY="376.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Img/ponto.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="14.0" layoutY="330.0" onAction="#ReciboFerias" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Recibo de férias" textAlignment="CENTER" textFill="WHITE" />
+            <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="22.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Img/Departamentos.png" />
+               </image>
+            </ImageView>
+                <ImageView fitHeight="18.0" fitWidth="23.0" layoutX="22.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Img/Relatorio.png" />
                     </image>
                 </ImageView>
             </children>
         </AnchorPane>
 
-        <AnchorPane style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <AnchorPane layoutX="233.0" layoutY="-3.0" prefHeight="1081.0" prefWidth="1204.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="107.0" AnchorPane.topAnchor="-3.0">
             <children>
                 <ImageView pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
                     <image>
-                        <Image url="@img/principal.png" />
+                        <Image url="@Img/principal.png" />
                     </image>
                 </ImageView>
-            <AnchorPane layoutX="714.0" layoutY="796.0" prefHeight="264.0" prefWidth="490.0" />
             </children>
         </AnchorPane>
 
-        <AnchorPane prefHeight="58.0" style="-fx-background-color: #e8ebed;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0">
+                    <AnchorPane layoutX="233.0" prefHeight="58.0" prefWidth="1204.0" style="-fx-background-color: #e8ebed;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="0.0">
             <children>
                 <Label fx:id="labelDataHora" alignment="CENTER_RIGHT" layoutY="20.0" prefHeight="18.0" prefWidth="200.0" AnchorPane.rightAnchor="20.0" />
             </children>
