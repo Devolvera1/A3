@@ -9,30 +9,35 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class AdicionarController {
 
-    @FXML private TextField Id, Nome, Cpf, Email, Telefone, Cargo, Salario;
+    @FXML private TextField Id, Nome, Cpf, Email, Telefone, Salario;
     @FXML private ComboBox<String> Status;
+    @FXML private ComboBox<Cargo> Cargo;
+    @FXML private ComboBox<Departamento> Departamento;
+
+    private Database db = new Database();
 
     @FXML
     public void initialize() {
+        Cargo.setItems(db.getCargos());
+        Departamento.setItems(db.getDepartamentos());
 
-        Status.getItems().addAll("Ativo");
-        Status.setValue("Ativo");
+        Status.getItems().addAll("ATIVO", "INATIVO", "EM_EXPERIENCIA");
+        Status.setValue("ATIVO");
         Id.setDisable(true);
+        Salario.setDisable(true);
     }
 
     @FXML
     private void Ok(ActionEvent event) {
-
-        if (Nome.getText().isEmpty() || Cpf.getText().isEmpty() || Salario.getText().isEmpty()) {
-            exibirAlerta("Erro", "Preencha os campos obrigatórios!");
+        if (Cargo.getValue() == null || Departamento.getValue() == null) {
+            exibirAlerta("Erro", "Selecione um Cargo e um Departamento!");
             return;
         }
-
-        String sql = "INSERT INTO funcionarios (nome, cpf, email, telefone, cargo, salario, status, data_admissao, departamento_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, CURDATE(), 1)";
+        String sql = "INSERT INTO funcionarios (nome, cpf, email, telefone, status, data_admissao, cargo_id, departamento_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -41,13 +46,10 @@ public class AdicionarController {
             pstmt.setString(2, Cpf.getText());
             pstmt.setString(3, Email.getText());
             pstmt.setString(4, Telefone.getText());
-            pstmt.setString(5, Cargo.getText());
-
-
-            double salario = Double.parseDouble(Salario.getText().replace(",", "."));
-            pstmt.setDouble(6, salario);
-
-            pstmt.setString(7, Status.getValue());
+            pstmt.setString(5, Status.getValue().toUpperCase());
+            pstmt.setDate(6, java.sql.Date.valueOf(LocalDate.now()));
+            pstmt.setInt(7, Cargo.getValue().getId());
+            pstmt.setInt(8, Departamento.getValue().getId());
 
             pstmt.executeUpdate();
 
@@ -56,9 +58,7 @@ public class AdicionarController {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            exibirAlerta("Erro", "Erro ao salvar no banco!");
-        } catch (NumberFormatException e) {
-            exibirAlerta("Erro", "Salário inválido!");
+            exibirAlerta("Erro", "Erro SQL: " + e.getMessage());
         }
     }
 

@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import java.sql.*;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,13 +14,19 @@ import java.sql.SQLException;
 
 public class EditarController {
 
-    @FXML private TextField Id, Nome, Cpf, Email, Telefone, Cargo, Salario;
+    @FXML private TextField Id, Nome, Cpf, Email, Telefone, Salario;
     @FXML private ComboBox<String> Status;
+    @FXML private ComboBox<Cargo> Cargo;
+    @FXML private ComboBox<Departamento> Departamento;
 
     @FXML
     public void initialize() {
-        Status.getItems().addAll("Ativo", "Inativo", "Em Experiência", "Afastada");
+        Status.getItems().addAll("ATIVO", "INATIVO", "EM_EXPERIENCIA", "AFASTADO");
         Id.setDisable(true);
+        Salario.setDisable(true);
+
+        carregarCargos();
+        carregarDepartamentos();
     }
 
     public void setFuncionario(Funcionario f) {
@@ -27,19 +35,44 @@ public class EditarController {
         Cpf.setText(f.CPF().get());
         Email.setText(f.email().get());
         Telefone.setText(f.telefone().get());
-        Cargo.setText(f.cargo().get());
-        Salario.setText(String.valueOf(f.salario().get()));
-        Status.setValue(f.status().get());
+        Status.setValue(f.status().get().toUpperCase());
+
+        for (Cargo c : Cargo.getItems()) {
+            if (c.getNome().equals(f.cargo().get())) {
+                Cargo.setValue(c);
+                break;
+            }
+        }
+    }
+
+    private void carregarCargos() {
+        String sql = "SELECT id, nome FROM cargos WHERE ativo = TRUE";
+        try (Connection conn = Database.getConnection();
+             ResultSet rs = conn.createStatement().executeQuery(sql)) {
+            while (rs.next()) {
+                Cargo.getItems().add(new Cargo(rs.getInt("id"), rs.getString("nome")));
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
+    }
+
+    private void carregarDepartamentos() {
+        String sql = "SELECT id, nome FROM departamentos";
+        try (Connection conn = Database.getConnection();
+             ResultSet rs = conn.createStatement().executeQuery(sql)) {
+            while (rs.next()) {
+                Departamento.getItems().add(new Departamento(rs.getInt("id"), rs.getString("nome")));
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
     }
 
     @FXML
     private void Ok(ActionEvent event) {
-        if (Nome.getText().isEmpty() || Cpf.getText().isEmpty() || Salario.getText().isEmpty()) {
-            exibirAlerta("Erro", "Preencha os campos obrigatórios!");
+        if (Cargo.getValue() == null || Departamento.getValue() == null) {
+            exibirAlerta("Erro", "Selecione um Cargo e um Departamento!");
             return;
         }
 
-        String sql = "UPDATE funcionarios SET nome=?, cpf=?, email=?, telefone=?, cargo=?, salario=?, status=? WHERE id=?";
+        String sql = "UPDATE funcionarios SET nome=?, cpf=?, email=?, telefone=?, status=?, cargo_id=?, departamento_id=? WHERE id=?";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -48,26 +81,26 @@ public class EditarController {
             pstmt.setString(2, Cpf.getText());
             pstmt.setString(3, Email.getText());
             pstmt.setString(4, Telefone.getText());
-            pstmt.setString(5, Cargo.getText());
-
-            double salario = Double.parseDouble(Salario.getText().replace(",", "."));
-            pstmt.setDouble(6, salario);
-            pstmt.setString(7, Status.getValue());
-
+            pstmt.setString(5, Status.getValue());
+            pstmt.setInt(6, Cargo.getValue().getId());
+            pstmt.setInt(7, Departamento.getValue().getId());
             pstmt.setInt(8, Integer.parseInt(Id.getText()));
 
-            pstmt.executeUpdate();
+            int rowsAffected = pstmt.executeUpdate();
 
-            exibirAlerta("Sucesso", "Funcionário atualizado com sucesso!");
-            Fechar(event);
+            if (rowsAffected > 0) {
+                exibirAlerta("Sucesso", "Funcionário atualizado!");
+                Fechar(event);
+            } else {
+                exibirAlerta("Aviso", "Nenhum registro encontrado com o ID: " + Id.getText());
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            exibirAlerta("Erro", "Erro ao salvar no banco!");
-        } catch (NumberFormatException e) {
-            exibirAlerta("Erro", "Salário inválido!");
+            exibirAlerta("Erro", "Erro ao salvar: " + e.getMessage());
         }
     }
+
 
     private void exibirAlerta(String titulo, String mensagem) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -63,6 +63,8 @@ public class CadastroController implements Initializable {
         ObservableList<Funcionario> listaOriginal = db.getFuncionarios();
         dadosFiltrados = new FilteredList<>(listaOriginal, p -> true);
 
+        tabelaFuncionarios.getSortOrder().add(ID);
+        ID.setSortType(TableColumn.SortType.ASCENDING);
         Research.textProperty().addListener((observable, oldValue, newValue) -> aplicarFiltros());
         De.valueProperty().addListener((observable, oldValue, newValue) -> aplicarFiltros());
         Ate.valueProperty().addListener((observable, oldValue, newValue) -> aplicarFiltros());
@@ -119,7 +121,8 @@ public class CadastroController implements Initializable {
             stage.setTitle("Adicionar Novo Registro");
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
             stage.setScene(new Scene(root));
-            stage.show();
+            stage.showAndWait();
+            Reload(null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -149,7 +152,8 @@ public class CadastroController implements Initializable {
                 System.out.println("Ícone não encontrado.");
             }
             stage.setScene(new Scene(root));
-            stage.show();
+            stage.showAndWait();
+            Reload(null);
         } catch (IOException e) {
             e.printStackTrace();
         }

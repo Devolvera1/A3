@@ -54,32 +54,35 @@ public class Database {
 
     public ObservableList<Funcionario> getFuncionarios() {
         ObservableList<Funcionario> lista = FXCollections.observableArrayList();
-        String query = "SELECT * FROM funcionarios";
+        String sql = "SELECT f.id, f.nome, f.cpf, f.email, f.telefone, f.status, f.data_admissao, " +
+                "c.nome AS nome_cargo, c.salarioBase " +
+                "FROM funcionarios f " +
+                "INNER JOIN cargos c ON f.cargo_id = c.ID";
 
         try (Connection conn = getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
-                java.sql.Date sqlDate = rs.getDate("data_admissao");
-                java.time.LocalDate dataLocal = (sqlDate != null) ? sqlDate.toLocalDate() : null;
-                lista.add(new Funcionario(
+                Funcionario f = new Funcionario(
                         rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("cpf"),
                         rs.getString("email"),
                         rs.getString("telefone"),
-                        rs.getString("cargo"),
-                        rs.getDouble("salario"),
+                        rs.getString("nome_cargo"),
+                        rs.getDouble("salarioBase"),
                         rs.getString("status"),
-                        dataLocal
-                ));
+                        rs.getDate("data_admissao").toLocalDate()
+                );
+                lista.add(f);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return lista;
     }
+
 
     public String registrarPonto(String username, String password) {
         String authQuery = "SELECT funcionario_id FROM usuarios WHERE username = ? AND senha = ?";
@@ -196,6 +199,30 @@ public class Database {
             return false;
         }
     }
+
+
+    public ObservableList<Cargo> getCargos() {
+        ObservableList<Cargo> lista = FXCollections.observableArrayList();
+        String sql = "SELECT ID, nome FROM cargos WHERE ativo = TRUE";
+        try (Connection conn = getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                lista.add(new Cargo(rs.getInt("ID"), rs.getString("nome")));
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
+        return lista;
+    }
+
+    public ObservableList<Departamento> getDepartamentos() {
+        ObservableList<Departamento> lista = FXCollections.observableArrayList();
+        String sql = "SELECT ID, nome FROM departamentos";
+        try (Connection conn = getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                lista.add(new Departamento(rs.getInt("ID"), rs.getString("nome")));
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
+        return lista;
+    }
+
 
 
 
