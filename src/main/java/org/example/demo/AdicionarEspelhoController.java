@@ -23,8 +23,8 @@ public class AdicionarEspelhoController {
     @FXML
     public void initialize() {
         Funcionarios();
-        Obs.getItems().addAll("Ativo");
-        Obs.setValue("Ativo");
+        Obs.getItems().addAll("Esqueceu de marcar", "Marcação em Duplicidade", "Problemas Técnicos","Atestados Médicos", "Afastamentos Diversos", "Serviços Externos", "Compensação de Banco de Horas","Troca de Turno","Troca de Escala", "Compensação de Banco de Horas");
+        Obs.setValue("Esqueceu de marcar");
         ID.setDisable(true);
         ID.setPromptText("Gerado automaticamente");
 

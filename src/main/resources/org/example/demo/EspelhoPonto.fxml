@@ -8,6 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Text?>
 
@@ -15,13 +16,13 @@
     <children>
         <AnchorPane prefHeight="43.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <TextField fx:id="Research" layoutX="14.0" layoutY="9.0" prefHeight="25.0" prefWidth="171.0" promptText="Research" />
+                <TextField fx:id="Research" layoutX="14.0" layoutY="9.0" prefHeight="25.0" prefWidth="171.0" promptText="🔎 Pesquisar ID, Nome, CPF..." />
 
                 <Text layoutX="216.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="De:" />
-                <DatePicker fx:id="De" layoutX="241.0" layoutY="9.0" prefWidth="140.0" showWeekNumbers="true" />
+                <DatePicker fx:id="De" layoutX="241.0" layoutY="9.0" prefWidth="140.0" promptText="Início" showWeekNumbers="true" />
 
                 <Text layoutX="396.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Até:" />
-                <DatePicker fx:id="Ate" layoutX="425.0" layoutY="9.0" prefWidth="140.0" showWeekNumbers="true" />
+                <DatePicker fx:id="Ate" layoutX="425.0" layoutY="9.0" prefWidth="140.0" promptText="Fim" showWeekNumbers="true" />
 
                 <Button layoutX="1312.0" layoutY="9.0" mnemonicParsing="false" onAction="#Reload" prefHeight="25.0" prefWidth="28.0" AnchorPane.rightAnchor="14.0">
                     <graphic>
@@ -61,10 +62,14 @@
                 <Circle fill="DODGERBLUE" layoutX="31.0" layoutY="25.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
                 <Circle fill="#ffbd1f" layoutX="54.0" layoutY="25.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
                 <Circle fill="#60d028" layoutX="74.0" layoutY="25.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-
-                <Button fx:id="Adicionar" layoutX="1284.0" layoutY="12.0" mnemonicParsing="false" onAction="#Adicionar" text="Adicionar" AnchorPane.rightAnchor="14.0" />
-                <Button fx:id="Editar" layoutX="1227.0" layoutY="12.0" mnemonicParsing="false" onAction="#Editar" text="Editar" AnchorPane.rightAnchor="95.0" />
-                <Button fx:id="Deletar" layoutX="1162.0" layoutY="12.0" mnemonicParsing="false" onAction="#Deletar" text="Deletar" AnchorPane.rightAnchor="155.0" />
+            <HBox alignment="CENTER_RIGHT" layoutX="1080.0" layoutY="15.0" prefHeight="25.0" prefWidth="320.0" spacing="10.0" AnchorPane.rightAnchor="14.0">
+               <children>
+      
+                      <Button fx:id="Adicionar" mnemonicParsing="false" onAction="#Adicionar" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #28c840; -fx-text-fill: white;" text="Adicionar" />
+                      <Button fx:id="Editar" mnemonicParsing="false" onAction="#Editar" prefHeight="25.0" prefWidth="100.0" text="Editar" />
+                      <Button fx:id="Deletar" mnemonicParsing="false" onAction="#Deletar" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #ff4d4d; -fx-text-fill: white;" text="Deletar" />
+               </children>
+            </HBox>
             </children>
         </AnchorPane>
     </children>

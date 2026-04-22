@@ -67,15 +67,26 @@ public class EspelhoPontoController implements Initializable {
             Stage stage = new Stage();
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
             stage.setScene(new Scene(root));
-            stage.show();
+            stage.showAndWait();
+            Reload(null);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    private void Editar(ActionEvent event) {
-        System.out.println("Lógica de edição");
+    private void Editar(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/EditarEspelho.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            Reload(null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
