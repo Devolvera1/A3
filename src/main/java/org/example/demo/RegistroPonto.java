@@ -40,4 +40,13 @@ public class RegistroPonto {
     public StringProperty saida2Property() { return saida2; }
     public StringProperty observacaoProperty() { return observacao; }
     public StringProperty statusProperty() { return status; }
+
+    public int getFuncionarioId() { return funcionario_id.get(); }
+    public String getEntrada() { return entrada.get(); }
+    public String getSaidaAlmoco() { return saida.get(); }
+    public String getRetornoAlmoco() { return entrada2.get(); }
+    public String getSaida() { return saida2.get(); }
+    public String getObservacao() { return observacao.get(); }
+    public String getStatus() { return status.get(); }
 }
+

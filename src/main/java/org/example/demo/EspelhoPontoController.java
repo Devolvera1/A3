@@ -1,6 +1,5 @@
 package org.example.demo;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -76,9 +75,18 @@ public class EspelhoPontoController implements Initializable {
 
     @FXML
     private void Editar(ActionEvent event){
+        RegistroPonto selecionado = tabelaPonto.getSelectionModel().getSelectedItem();
+
+        if (selecionado == null) {
+            exibirAlerta("Atenção", "Por favor, clique em um funcionário na tabela para poder editá-lo!", Alert.AlertType.WARNING);
+            return;
+        }
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/EditarEspelho.fxml"));
             Parent root = loader.load();
+            EditarEspelhoController controller = loader.getController();
+            controller.setDados(selecionado);
             Stage stage = new Stage();
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
             stage.setScene(new Scene(root));

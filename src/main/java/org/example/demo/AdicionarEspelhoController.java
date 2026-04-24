@@ -72,7 +72,7 @@ public class AdicionarEspelhoController {
         }
 
         String sql = "INSERT INTO registroPonto (funcionario_id, data_registro, entrada, saida_almoco, retorno_almoco, saida, status, observacao) " +
-                "VALUES (?, ?, ?, ?, ?, ?, 'PENDENTE', ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, 'COMPLETO', ?)";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

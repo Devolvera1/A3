@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -16,13 +16,6 @@
     <children>
         <AnchorPane prefHeight="43.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <TextField fx:id="Research" layoutX="14.0" layoutY="9.0" prefHeight="25.0" prefWidth="171.0" promptText="🔎 Pesquisar ID, Nome, CPF..." />
-
-                <Text layoutX="216.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="De:" />
-                <DatePicker fx:id="De" layoutX="241.0" layoutY="9.0" prefWidth="140.0" promptText="Início" showWeekNumbers="true" />
-
-                <Text layoutX="396.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Até:" />
-                <DatePicker fx:id="Ate" layoutX="425.0" layoutY="9.0" prefWidth="140.0" promptText="Fim" showWeekNumbers="true" />
 
                 <Button layoutX="1312.0" layoutY="9.0" mnemonicParsing="false" onAction="#Reload" prefHeight="25.0" prefWidth="28.0" AnchorPane.rightAnchor="14.0">
                     <graphic>
@@ -33,6 +26,19 @@
                         </ImageView>
                     </graphic>
                 </Button>
+            <HBox alignment="CENTER_RIGHT" layoutX="14.0" layoutY="9.0" spacing="10.0">
+               <children>
+                      <TextField fx:id="Research" prefHeight="25.0" prefWidth="171.0" promptText="🔎 Pesquisar ID, Nome" />
+
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ano:" />
+                  <ComboBox prefWidth="150.0" />
+
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mês:" />
+                  <ComboBox prefWidth="150.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
+                  <ComboBox prefWidth="150.0" />
+               </children>
+            </HBox>
             </children>
         </AnchorPane>
 
@@ -64,10 +70,10 @@
                 <Circle fill="#60d028" layoutX="74.0" layoutY="25.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
             <HBox alignment="CENTER_RIGHT" layoutX="1080.0" layoutY="15.0" prefHeight="25.0" prefWidth="320.0" spacing="10.0" AnchorPane.rightAnchor="14.0">
                <children>
-      
-                      <Button fx:id="Adicionar" mnemonicParsing="false" onAction="#Adicionar" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #28c840; -fx-text-fill: white;" text="Adicionar" />
-                      <Button fx:id="Editar" mnemonicParsing="false" onAction="#Editar" prefHeight="25.0" prefWidth="100.0" text="Editar" />
                       <Button fx:id="Deletar" mnemonicParsing="false" onAction="#Deletar" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #ff4d4d; -fx-text-fill: white;" text="Deletar" />
+                      <Button fx:id="Editar" mnemonicParsing="false" onAction="#Editar" prefHeight="25.0" prefWidth="100.0" text="Editar" />
+
+                      <Button fx:id="Adicionar" mnemonicParsing="false" onAction="#Adicionar" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #28c840; -fx-text-fill: white;" text="Adicionar" />
                </children>
             </HBox>
             </children>

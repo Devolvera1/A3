@@ -7,7 +7,6 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="298.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.AdicionarEspelhoController">
    <children>
       <AnchorPane layoutX="-3.0" layoutY="28.0" prefHeight="270.0" prefWidth="610.0" style="-fx-background-color: #ffffff;">
@@ -15,8 +14,8 @@
             <TextField fx:id="ID" editable="false" layoutX="69.0" layoutY="36.0" />
             <Text layoutX="69.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
             <TextField fx:id="Data" layoutX="69.0" layoutY="151.0" />
-            <Text layoutX="69.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome" />
-            <Text layoutX="70.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data De Registro" />
+            <Text layoutX="69.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Nome" />
+            <Text layoutX="70.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Data Do Registro (DD/MM/AAAA)" />
             <TextField fx:id="Entrada" layoutX="382.0" layoutY="36.0" />
             <Text layoutX="380.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="* Entrada" />
             <TextField fx:id="Saida" layoutX="382.0" layoutY="91.0" />
