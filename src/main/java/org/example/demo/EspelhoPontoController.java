@@ -27,6 +27,8 @@ public class EspelhoPontoController implements Initializable {
     @FXML private Button Adicionar, Editar, Deletar;
     @FXML private DatePicker fim;
     @FXML private DatePicker inicio;
+    @FXML private ComboBox status;
+    @FXML private TextField Research;
 
     @FXML private TableColumn<RegistroPonto, Integer> colFuncID;
     @FXML private TableColumn<RegistroPonto, String> colNome, colData, colEntrada, colSaida, colEntrada2, colSaida2, colObs, colStatus;
@@ -50,6 +52,10 @@ public class EspelhoPontoController implements Initializable {
         inicio.valueProperty().addListener((obs, antigo, novo) -> aplicarFiltro());
         fim.valueProperty().addListener((obs, antigo, novo) -> aplicarFiltro());
 
+        status.getItems().addAll("TODOS", "COMPLETO", "FALTA", "INCONSISTENTE");
+        status.setValue("TODOS");
+        status.valueProperty().addListener((obs, antigo, novo) -> aplicarFiltro());
+        Research.textProperty().addListener((observable, oldValue, newValue) -> aplicarFiltro());
         tabelaPonto.setRowFactory(tv -> {
             TableRow<RegistroPonto> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -79,19 +85,37 @@ public class EspelhoPontoController implements Initializable {
         if (dadosFiltrados == null) return;
 
         dadosFiltrados.setPredicate(registro -> {
+            String textoBusca = Research.getText();
+            boolean bateComTexto = true;
+            if (textoBusca != null && !textoBusca.trim().isEmpty()) {
+                String buscaMinuscula = textoBusca.toLowerCase();
+
+                bateComTexto = String.valueOf(registro.funcionarioIDProperty().get()).contains(buscaMinuscula)
+                        || registro.nomeFuncionarioProperty().get().toLowerCase().contains(buscaMinuscula);
+            }
             LocalDate dataInicio = inicio.getValue();
             LocalDate dataFim = fim.getValue();
+            boolean dataBate = true;
 
-            if (dataInicio == null || dataFim == null) return true;
-
-            try {
-                LocalDate dataReg = LocalDate.parse(registro.getData(), formatter);
-                return !dataReg.isBefore(dataInicio) && !dataReg.isAfter(dataFim);
-            } catch (Exception e) {
-                return true;
+            if (dataInicio != null && dataFim != null) {
+                try {
+                    LocalDate dataReg = LocalDate.parse(registro.getData(), formatter);
+                    dataBate = !dataReg.isBefore(dataInicio) && !dataReg.isAfter(dataFim);
+                } catch (Exception e) {
+                    dataBate = true;
+                }
             }
+
+            String statusSelecionado = (String) status.getValue();
+            boolean statusBate = true;
+
+            if (statusSelecionado != null && !statusSelecionado.equals("TODOS")) {
+                statusBate = registro.getStatus().equalsIgnoreCase(statusSelecionado);
+            }
+            return bateComTexto && dataBate && statusBate;
         });
     }
+
 
     @FXML
     private void Adicionar(ActionEvent event) {

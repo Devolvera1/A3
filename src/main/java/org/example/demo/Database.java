@@ -175,8 +175,8 @@ public class Database {
                         rs.getString("saida_almoco"),
                         rs.getString("retorno_almoco"),
                         rs.getString("saida"),
-                        rs.getString("status"),
-                        rs.getString("Observacao")
+                        rs.getString("Observacao"),
+                        rs.getString("status")
                 ));
             }
         } catch (SQLException e) {

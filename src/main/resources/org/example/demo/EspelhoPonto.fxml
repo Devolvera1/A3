@@ -37,7 +37,7 @@
                       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mês:" />
                   <DatePicker fx:id="fim" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
-                  <ComboBox prefWidth="150.0" />
+                  <ComboBox fx:id="status" prefWidth="150.0" />
                </children>
             </HBox>
             </children>
@@ -54,8 +54,8 @@
                         <TableColumn fx:id="colSaida" prefWidth="126.0" style="-fx-alignment: Center;" text="Sai1" />
                         <TableColumn fx:id="colEntrada2" prefWidth="137.0" style="-fx-alignment: Center;" text="Ent2" />
                         <TableColumn fx:id="colSaida2" prefWidth="143.0" style="-fx-alignment: Center;" text="Sai2" />
-                        <TableColumn fx:id="colStatus" minWidth="2.0" prefWidth="270.0" style="-fx-alignment: Center;" text="Observação" />
-                        <TableColumn fx:id="colObs" minWidth="2.0" prefWidth="125.0" style="-fx-alignment: Center;" text="Status" />
+                        <TableColumn fx:id="colObs" minWidth="2.0" prefWidth="270.0" style="-fx-alignment: Center;" text="Observação" />
+                        <TableColumn fx:id="colStatus" minWidth="2.0" prefWidth="125.0" style="-fx-alignment: Center;" text="Status" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
