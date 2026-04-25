@@ -9,17 +9,24 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
+import javafx.collections.ObservableList;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.transformation.FilteredList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class EspelhoPontoController implements Initializable {
     private final Database db = new Database();
     private Usuario usuarioLogado;
+    private FilteredList<RegistroPonto> dadosFiltrados;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @FXML private TableView<RegistroPonto> tabelaPonto;
     @FXML private Button Adicionar, Editar, Deletar;
+    @FXML private DatePicker fim;
+    @FXML private DatePicker inicio;
 
     @FXML private TableColumn<RegistroPonto, Integer> colFuncID;
     @FXML private TableColumn<RegistroPonto, String> colNome, colData, colEntrada, colSaida, colEntrada2, colSaida2, colObs, colStatus;
@@ -36,6 +43,13 @@ public class EspelhoPontoController implements Initializable {
         colObs.setCellValueFactory(c -> c.getValue().observacaoProperty());
         colStatus.setCellValueFactory(c -> c.getValue().statusProperty());
 
+        LocalDate hoje = LocalDate.now();
+        inicio.setValue(hoje.withDayOfMonth(1));
+        fim.setValue(hoje.withDayOfMonth(hoje.lengthOfMonth()));
+
+        inicio.valueProperty().addListener((obs, antigo, novo) -> aplicarFiltro());
+        fim.valueProperty().addListener((obs, antigo, novo) -> aplicarFiltro());
+
         tabelaPonto.setRowFactory(tv -> {
             TableRow<RegistroPonto> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -50,12 +64,33 @@ public class EspelhoPontoController implements Initializable {
     public void setUsuario(Usuario user) {
         this.usuarioLogado = user;
         if (user != null) {
-            tabelaPonto.setItems(db.getPontosPorPerfil(user));
+            dadosFiltrados = new FilteredList<>(db.getPontosPorPerfil(user), p -> true);
+            tabelaPonto.setItems(dadosFiltrados);
+            aplicarFiltro();
+
             boolean naoEhAdmin = !user.getFuncao().equalsIgnoreCase("ADMIN");
             Adicionar.setDisable(naoEhAdmin);
             Editar.setDisable(naoEhAdmin);
             Deletar.setDisable(naoEhAdmin);
         }
+    }
+
+    private void aplicarFiltro() {
+        if (dadosFiltrados == null) return;
+
+        dadosFiltrados.setPredicate(registro -> {
+            LocalDate dataInicio = inicio.getValue();
+            LocalDate dataFim = fim.getValue();
+
+            if (dataInicio == null || dataFim == null) return true;
+
+            try {
+                LocalDate dataReg = LocalDate.parse(registro.getData(), formatter);
+                return !dataReg.isBefore(dataInicio) && !dataReg.isAfter(dataFim);
+            } catch (Exception e) {
+                return true;
+            }
+        });
     }
 
     @FXML
@@ -134,8 +169,11 @@ public class EspelhoPontoController implements Initializable {
     @FXML
     private void Reload(ActionEvent event) {
         if (this.usuarioLogado != null) {
-            tabelaPonto.setItems(db.getPontosPorPerfil(this.usuarioLogado));
-            tabelaPonto.refresh();
+            ObservableList<RegistroPonto> dadosDoBanco = db.getPontosPorPerfil(this.usuarioLogado);
+            dadosFiltrados = new FilteredList<>(dadosDoBanco, p -> true);
+            tabelaPonto.setItems(dadosFiltrados);
+            aplicarFiltro();
         }
+
     }
 }
