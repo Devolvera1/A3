@@ -54,10 +54,13 @@ public class Database {
 
     public ObservableList<Funcionario> getFuncionarios() {
         ObservableList<Funcionario> lista = FXCollections.observableArrayList();
-        String sql = "SELECT f.id, f.nome, f.cpf, f.email, f.telefone, f.status, f.data_admissao, " +
-                "c.nome AS nome_cargo, c.salarioBase " +
+
+        String sql = "SELECT f.id, f.nome, f.cpf, f.email, f.telefone, f.status, f.data_admissao, f.departamento_id, " +
+                "c.nome AS nome_cargo, c.salarioBase, " +
+                "d.nome AS nome_departamento " +
                 "FROM funcionarios f " +
-                "INNER JOIN cargos c ON f.cargo_id = c.ID";
+                "INNER JOIN cargos c ON f.cargo_id = c.ID " +
+                "INNER JOIN departamentos d ON f.departamento_id = d.ID";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -73,7 +76,8 @@ public class Database {
                         rs.getString("nome_cargo"),
                         rs.getDouble("salarioBase"),
                         rs.getString("status"),
-                        rs.getDate("data_admissao").toLocalDate()
+                        rs.getDate("data_admissao").toLocalDate(),
+                        rs.getString("nome_departamento")
                 );
                 lista.add(f);
             }
@@ -167,8 +171,8 @@ public class Database {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 lista.add(new RegistroPonto(
-                        rs.getInt("funcionario_id"),
                         rs.getInt("id"),
+                        rs.getInt("funcionario_id"),
                         rs.getString("nome"),
                         rs.getString("data_registro"),
                         rs.getString("entrada"),

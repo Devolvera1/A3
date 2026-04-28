@@ -59,6 +59,7 @@
                         <TableColumn fx:id="Salario" prefWidth="100.0" style="-fx-alignment: CENTER-RIGHT;" text="Salário" />
                         <TableColumn fx:id="Status" prefWidth="120.0" style="-fx-alignment: CENTER;" text="Status" />
                         <TableColumn fx:id="Data_admissao" prefWidth="130.0" style="-fx-alignment: CENTER;" text="Data Admissão" />
+                  <TableColumn fx:id="Departamento_id" prefWidth="130.0" style="-fx-alignment: CENTER;" text="Departamento" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

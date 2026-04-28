@@ -92,7 +92,7 @@ public class EditarEspelhoController {
 
         String sql = "UPDATE registroPonto SET funcionario_id=?, data_registro=?, entrada=?, " +
                 "saida_almoco=?, retorno_almoco=?, saida=?, status='Esqueceu de marcar', observacao=? " +
-                "WHERE ID=?";
+                "WHERE id=?";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -109,7 +109,6 @@ public class EditarEspelhoController {
             pstmt.executeUpdate();
             exibirAlerta("Sucesso", "Registro atualizado!", Alert.AlertType.INFORMATION);
             Fechar(event);
-
         } catch (SQLException e) {
             exibirAlerta("Erro", "Erro ao atualizar: " + e.getMessage());
         }
@@ -122,20 +121,16 @@ public class EditarEspelhoController {
 
     private void aplicarMascaraHora(TextField tf) {
         tf.textProperty().addListener((obs, velho, novo) -> {
-            if (novo == null) return;
+            if (novo == null || novo.length() < velho.length()) return;
             String texto = novo.replaceAll("[^\\d]", "");
-
             if (texto.length() > 4) texto = texto.substring(0, 4);
 
-            String formatado = texto;
             if (texto.length() >= 3) {
-                formatado = texto.substring(0, 2) + ":" + texto.substring(2);
-            }
-
-            if (!novo.equals(formatado)) {
-                tf.setText(formatado);
-                int pos = formatado.length();
-                Platform.runLater(() -> tf.positionCaret(pos));
+                String formatado = texto.substring(0, 2) + ":" + texto.substring(2);
+                if (!novo.equals(formatado)) {
+                    tf.setText(formatado);
+                    Platform.runLater(tf::end);
+                }
             }
         });
     }

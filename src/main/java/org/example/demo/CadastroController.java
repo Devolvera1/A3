@@ -1,5 +1,6 @@
 package org.example.demo;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -24,7 +25,7 @@ public class CadastroController implements Initializable {
 
     @FXML private TableView<Funcionario> tabelaFuncionarios;
     @FXML private TableColumn<Funcionario, Integer> ID;
-    @FXML private TableColumn<Funcionario, String> Nome, CPF, Email, Telefone, Cargo, Status;
+    @FXML private TableColumn<Funcionario, String> Nome, CPF, Email, Telefone, Cargo, Status, Departamento_id;
     @FXML private TableColumn<Funcionario, Double> Salario;
     @FXML private TableColumn<Funcionario, LocalDate> Data_admissao;
     @FXML private TextField Research;
@@ -46,6 +47,7 @@ public class CadastroController implements Initializable {
         Salario.setCellValueFactory(cellData -> cellData.getValue().salario().asObject());
         Status.setCellValueFactory(cellData -> cellData.getValue().status());
         Data_admissao.setCellValueFactory(cellData -> cellData.getValue().data_admissao());
+        Departamento_id.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartamentoNome()));
 
         DateTimeFormatter formatadorBR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Data_admissao.setCellFactory(coluna -> new TableCell<>() {
@@ -201,6 +203,7 @@ public class CadastroController implements Initializable {
 
         SortedList<Funcionario> dadosOrdenados = new SortedList<>(dadosFiltrados);
         dadosOrdenados.comparatorProperty().bind(tabelaFuncionarios.comparatorProperty());
+
 
         tabelaFuncionarios.setItems(dadosOrdenados);
     }

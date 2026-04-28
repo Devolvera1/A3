@@ -13,8 +13,9 @@ public class Funcionario {
     private final DoubleProperty salario;
     private final StringProperty status;
     private final ObjectProperty<LocalDate> data_admissao;
+    private final StringProperty departamento_id;
 
-    public Funcionario(int id, String nome, String cpf, String email, String telefone, String cargo, double salario, String status, LocalDate data_admissao) {
+    public Funcionario(int id, String nome, String cpf, String email, String telefone, String cargo, double salario, String status, LocalDate data_admissao,  String departamento_id) {
         this.id = new SimpleIntegerProperty(id);
         this.nome = new SimpleStringProperty(nome);
         this.cpf = new SimpleStringProperty(cpf);
@@ -24,6 +25,7 @@ public class Funcionario {
         this.salario = new SimpleDoubleProperty(salario);
         this.status = new SimpleStringProperty(status);
         this.data_admissao = new SimpleObjectProperty<>(data_admissao);
+        this.departamento_id = new SimpleStringProperty(departamento_id);
     }
 
     public IntegerProperty id() { return id; }
@@ -37,12 +39,13 @@ public class Funcionario {
     public ObjectProperty<LocalDate> data_admissao() { return data_admissao; }
 
     public Funcionario(int id, String nome) {
-        this(id, nome, null, null, null, null, 0.0, null, null);
+        this(id, nome, null, null, null, null, 0.0, null, null, null    );
     }
     public int getId() { return id.get(); }
     public String getNome() { return nome.get(); }
     public IntegerProperty idProperty() { return id; }
     public StringProperty nomeProperty() { return nome; }
+    public String getDepartamentoNome() { return departamento_id.get(); }
 
     @Override
     public String toString() {

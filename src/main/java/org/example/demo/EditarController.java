@@ -43,6 +43,12 @@ public class EditarController {
                 break;
             }
         }
+        for (Departamento d : Departamento.getItems()) {
+            if (d.getNome().equals(f.getDepartamentoNome())) {
+                Departamento.setValue(d);
+                break;
+            }
+        }
     }
 
     private void carregarCargos() {
