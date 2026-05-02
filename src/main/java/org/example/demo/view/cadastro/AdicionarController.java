@@ -1,10 +1,13 @@
-package org.example.demo;
+package org.example.demo.view.cadastro;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.demo.config.Database;
+import org.example.demo.util.Cargo;
+import org.example.demo.util.Departamento;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

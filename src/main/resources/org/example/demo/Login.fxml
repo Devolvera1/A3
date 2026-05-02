@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="211.0" prefWidth="443.0" style="-fx-background-color: #ffffff; " xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="211.0" prefWidth="443.0" style="-fx-background-color: #ffffff; " xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.view.login.LoginController">
    <children>
       <Button fx:id="Ok" layoutX="225.0" layoutY="167.0" mnemonicParsing="false" onAction="#onOkButtonClick" prefHeight="25.0" prefWidth="84.0" text="Ok" />
       <Button fx:id="Cancelar" layoutX="325.0" layoutY="167.0" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="25.0" prefWidth="84.0" text="Cancelar" />

@@ -1,19 +1,18 @@
-package org.example.demo;
+package org.example.demo.view.espelho;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-public class MarcaPonto extends Application {
+public class EditarEspelho extends Application {
 
 
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/org/example/demo/MarcaPonto.fxml")
+                getClass().getResource("/org/example/demo/EditarEspelho.fxml")
         );
 
         Scene scene = new Scene(loader.load());

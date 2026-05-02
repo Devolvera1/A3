@@ -1,9 +1,11 @@
-package org.example.demo;
+package org.example.demo.view.ponto;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import org.example.demo.config.Database;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

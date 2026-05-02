@@ -1,4 +1,4 @@
-package org.example.demo;
+package org.example.demo.view.espelho;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.demo.view.cadastro.Adicionar;
+import org.example.demo.config.Database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +18,7 @@ public class AdicionarEspelhoController {
 
     @FXML private TextField ID, Data, Entrada, Saida, Saida2, Entrada2;
     @FXML private ComboBox<String> Obs;
-    @FXML private ComboBox<Funcionario> Funcionarios;
+    @FXML private ComboBox<Adicionar.Funcionario> Funcionarios;
 
 
 
@@ -43,7 +45,7 @@ public class AdicionarEspelhoController {
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
-                Funcionarios.getItems().add(new Funcionario(
+                Funcionarios.getItems().add(new Adicionar.Funcionario(
                         rs.getInt("id"),
                         rs.getString("nome")
                 ));
@@ -54,7 +56,7 @@ public class AdicionarEspelhoController {
     }
     @FXML
     private void Ok(ActionEvent event) {
-        Funcionario selecionado = Funcionarios.getSelectionModel().getSelectedItem();
+        Adicionar.Funcionario selecionado = Funcionarios.getSelectionModel().getSelectedItem();
         String dataDigitada = Data.getText();
 
         if (selecionado == null || dataDigitada.length() < 10) {

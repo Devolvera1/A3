@@ -1,24 +1,23 @@
-package org.example.demo;
+package org.example.demo.view.cadastro;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-public class EditarEspelho extends Application {
+public class Cadastro extends Application {
 
 
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/org/example/demo/EditarEspelho.fxml")
+                getClass().getResource("/org/example/demo/Cadastro.fxml")
         );
+
 
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
+        stage.setMaximized(true);
         stage.show();
     }
 

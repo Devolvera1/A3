@@ -1,4 +1,4 @@
-package org.example.demo;
+package org.example.demo.view.login;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
@@ -6,6 +6,9 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.example.demo.view.principal.PrincipalController;
+import org.example.demo.config.Database;
+import org.example.demo.util.Usuario;
 
 import java.io.IOException;
 

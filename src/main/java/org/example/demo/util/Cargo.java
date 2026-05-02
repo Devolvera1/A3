@@ -1,9 +1,9 @@
-package org.example.demo;
+package org.example.demo.util;
 
-public class Departamento {
+public class Cargo {
     private int id;
     private String nome;
-    public Departamento(int id, String nome) { this.id = id; this.nome = nome; }
+    public Cargo(int id, String nome) { this.id = id; this.nome = nome; }
     public int getId() { return id; }
     public String getNome() { return nome; }
     @Override public String toString() { return nome; }

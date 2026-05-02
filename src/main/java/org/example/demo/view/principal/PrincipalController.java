@@ -1,4 +1,4 @@
-package org.example.demo;
+package org.example.demo.view.principal;
 
 import javafx.animation.*;
 import javafx.event.ActionEvent;
@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.example.demo.view.espelho.EspelhoPontoController;
+import org.example.demo.util.Usuario;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

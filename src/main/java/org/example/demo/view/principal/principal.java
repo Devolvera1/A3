@@ -1,9 +1,8 @@
-package org.example.demo;
+package org.example.demo.view.principal;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class principal extends Application {

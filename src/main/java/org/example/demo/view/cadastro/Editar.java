@@ -1,24 +1,21 @@
-package org.example.demo;
+package org.example.demo.view.cadastro;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-public class EspelhoPonto extends Application {
+public class Editar extends Application {
 
 
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/org/example/demo/EspelhoPonto.fxml")
+                getClass().getResource("/org/example/demo/Editar.fxml")
         );
 
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
         stage.show();
     }
 

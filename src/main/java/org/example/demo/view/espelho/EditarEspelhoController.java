@@ -1,4 +1,4 @@
-package org.example.demo;
+package org.example.demo.view.espelho;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -6,6 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.demo.view.cadastro.Adicionar;
+import org.example.demo.config.Database;
+import org.example.demo.util.Departamento;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +19,7 @@ public class EditarEspelhoController {
 
     @FXML private TextField ID, Data, Entrada, Saida, Entrada2, Saida2;
     @FXML private ComboBox<String> Obs;
-    @FXML private ComboBox<Funcionario> Funcionarios;
+    @FXML private ComboBox<Adicionar.Funcionario> Funcionarios;
 
     @FXML
     public void initialize() {
@@ -39,12 +43,12 @@ public class EditarEspelhoController {
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
-                Funcionarios.getItems().add(new Funcionario(rs.getInt("id"), rs.getString("nome")));
+                Funcionarios.getItems().add(new Adicionar.Funcionario(rs.getInt("id"), rs.getString("nome")));
             }
         } catch (SQLException e) { e.printStackTrace(); }
     }
 
-    public void setDados(RegistroPonto registro) {
+    public void setDados(Departamento.RegistroPonto registro) {
         ID.setText(String.valueOf(registro.getId()));
 
         if (registro.getData() != null) {
@@ -58,7 +62,7 @@ public class EditarEspelhoController {
         Saida2.setText(limparHora(registro.getSaida()));
         Obs.setValue(registro.getObservacao());
 
-        for (Funcionario f : Funcionarios.getItems()) {
+        for (Adicionar.Funcionario f : Funcionarios.getItems()) {
             if (f.getId() == registro.getFuncionarioId()) {
                 Funcionarios.setValue(f);
                 break;
@@ -73,7 +77,7 @@ public class EditarEspelhoController {
 
     @FXML
     private void Ok(ActionEvent event) {
-        Funcionario func = Funcionarios.getSelectionModel().getSelectedItem();
+        Adicionar.Funcionario func = Funcionarios.getSelectionModel().getSelectedItem();
         String dataDigitada = Data.getText();
 
         if (func == null || dataDigitada.length() < 10) {

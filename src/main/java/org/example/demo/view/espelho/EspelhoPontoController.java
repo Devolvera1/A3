@@ -1,4 +1,4 @@
-package org.example.demo;
+package org.example.demo.view.espelho;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,24 +14,28 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.transformation.FilteredList;
+import org.example.demo.util.Departamento;
+import org.example.demo.util.Usuario;
+import org.example.demo.config.Database;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class EspelhoPontoController implements Initializable {
     private final Database db = new Database();
     private Usuario usuarioLogado;
-    private FilteredList<RegistroPonto> dadosFiltrados;
+    private FilteredList<Departamento.RegistroPonto> dadosFiltrados;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    @FXML private TableView<RegistroPonto> tabelaPonto;
+    @FXML private TableView<Departamento.RegistroPonto> tabelaPonto;
     @FXML private Button Adicionar, Editar, Deletar;
     @FXML private DatePicker fim;
     @FXML private DatePicker inicio;
     @FXML private ComboBox status;
     @FXML private TextField Research;
 
-    @FXML private TableColumn<RegistroPonto, Integer> colFuncID;
-    @FXML private TableColumn<RegistroPonto, String> colNome, colData, colEntrada, colSaida, colEntrada2, colSaida2, colObs, colStatus;
+    @FXML private TableColumn<Departamento.RegistroPonto, Integer> colFuncID;
+    @FXML private TableColumn<Departamento.RegistroPonto, String> colNome, colData, colEntrada, colSaida, colEntrada2, colSaida2, colObs, colStatus;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -57,7 +61,7 @@ public class EspelhoPontoController implements Initializable {
         status.valueProperty().addListener((obs, antigo, novo) -> aplicarFiltro());
         Research.textProperty().addListener((observable, oldValue, newValue) -> aplicarFiltro());
         tabelaPonto.setRowFactory(tv -> {
-            TableRow<RegistroPonto> row = new TableRow<>();
+            TableRow<Departamento.RegistroPonto> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     Deletar(new ActionEvent());
@@ -134,7 +138,7 @@ public class EspelhoPontoController implements Initializable {
 
     @FXML
     private void Editar(ActionEvent event){
-        RegistroPonto selecionado = tabelaPonto.getSelectionModel().getSelectedItem();
+        Departamento.RegistroPonto selecionado = tabelaPonto.getSelectionModel().getSelectedItem();
 
         if (selecionado == null) {
             exibirAlerta("Atenção", "Por favor, clique em um funcionário na tabela para poder editá-lo!", Alert.AlertType.WARNING);
@@ -158,7 +162,7 @@ public class EspelhoPontoController implements Initializable {
 
     @FXML
     private void Deletar(ActionEvent event) {
-        RegistroPonto selecionado = tabelaPonto.getSelectionModel().getSelectedItem();
+        Departamento.RegistroPonto selecionado = tabelaPonto.getSelectionModel().getSelectedItem();
 
         if (selecionado == null) {
             exibirAlerta("Atenção", "Selecione um registro na tabela para excluir!", Alert.AlertType.WARNING);
@@ -173,7 +177,9 @@ public class EspelhoPontoController implements Initializable {
         confirmacao.showAndWait().ifPresent(resposta -> {
             if (resposta == ButtonType.OK) {
                 if (db.deletarPonto(selecionado.getId())) {
-                    tabelaPonto.getItems().remove(selecionado);
+                    ObservableList<Departamento.RegistroPonto> fonteOriginal = (ObservableList<Departamento.RegistroPonto>) dadosFiltrados.getSource();
+                    fonteOriginal.remove(selecionado);
+
                     exibirAlerta("Sucesso!", "Registro removido!", Alert.AlertType.INFORMATION);
                 } else {
                     exibirAlerta("Erro", "Erro ao excluir do banco de dados.", Alert.AlertType.ERROR);
@@ -193,7 +199,7 @@ public class EspelhoPontoController implements Initializable {
     @FXML
     private void Reload(ActionEvent event) {
         if (this.usuarioLogado != null) {
-            ObservableList<RegistroPonto> dadosDoBanco = db.getPontosPorPerfil(this.usuarioLogado);
+            ObservableList<Departamento.RegistroPonto> dadosDoBanco = db.getPontosPorPerfil(this.usuarioLogado);
             dadosFiltrados = new FilteredList<>(dadosDoBanco, p -> true);
             tabelaPonto.setItems(dadosFiltrados);
             aplicarFiltro();

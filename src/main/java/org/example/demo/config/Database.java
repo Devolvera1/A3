@@ -1,7 +1,11 @@
-package org.example.demo;
+package org.example.demo.config;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.example.demo.view.cadastro.Adicionar;
+import org.example.demo.util.Cargo;
+import org.example.demo.util.Departamento;
+import org.example.demo.util.Usuario;
 
 import java.sql.*;
 
@@ -52,8 +56,8 @@ public class Database {
     }
 
 
-    public ObservableList<Funcionario> getFuncionarios() {
-        ObservableList<Funcionario> lista = FXCollections.observableArrayList();
+    public ObservableList<Adicionar.Funcionario> getFuncionarios() {
+        ObservableList<Adicionar.Funcionario> lista = FXCollections.observableArrayList();
 
         String sql = "SELECT f.id, f.nome, f.cpf, f.email, f.telefone, f.status, f.data_admissao, f.departamento_id, " +
                 "c.nome AS nome_cargo, c.salarioBase, " +
@@ -67,7 +71,7 @@ public class Database {
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
-                Funcionario f = new Funcionario(
+                Adicionar.Funcionario f = new Adicionar.Funcionario(
                         rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("cpf"),
@@ -150,8 +154,8 @@ public class Database {
         }
     }
 
-    public ObservableList<RegistroPonto> getPontosPorPerfil(Usuario user) {
-        ObservableList<RegistroPonto> lista = FXCollections.observableArrayList();
+    public ObservableList<Departamento.RegistroPonto> getPontosPorPerfil(Usuario user) {
+        ObservableList<Departamento.RegistroPonto> lista = FXCollections.observableArrayList();
         boolean isAdmin = user.getFuncao().equalsIgnoreCase("ADMIN");
 
         String sql = "SELECT p.*, f.nome FROM registroPonto p " +
@@ -170,7 +174,7 @@ public class Database {
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                lista.add(new RegistroPonto(
+                lista.add(new Departamento.RegistroPonto(
                         rs.getInt("id"),
                         rs.getInt("funcionario_id"),
                         rs.getString("nome"),

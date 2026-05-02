@@ -1,4 +1,4 @@
-package org.example.demo;
+package org.example.demo.view.cadastro;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -13,7 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import org.example.demo.config.Database;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,18 +23,18 @@ import java.util.ResourceBundle;
 
 public class CadastroController implements Initializable {
 
-    @FXML private TableView<Funcionario> tabelaFuncionarios;
-    @FXML private TableColumn<Funcionario, Integer> ID;
-    @FXML private TableColumn<Funcionario, String> Nome, CPF, Email, Telefone, Cargo, Status, Departamento_id;
-    @FXML private TableColumn<Funcionario, Double> Salario;
-    @FXML private TableColumn<Funcionario, LocalDate> Data_admissao;
+    @FXML private TableView<Adicionar.Funcionario> tabelaFuncionarios;
+    @FXML private TableColumn<Adicionar.Funcionario, Integer> ID;
+    @FXML private TableColumn<Adicionar.Funcionario, String> Nome, CPF, Email, Telefone, Cargo, Status, Departamento_id;
+    @FXML private TableColumn<Adicionar.Funcionario, Double> Salario;
+    @FXML private TableColumn<Adicionar.Funcionario, LocalDate> Data_admissao;
     @FXML private TextField Research;
     @FXML private DatePicker De;
     @FXML private DatePicker Ate;
 
     private final Database db = new Database();
 
-    private FilteredList<Funcionario> dadosFiltrados;
+    private FilteredList<Adicionar.Funcionario> dadosFiltrados;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -62,7 +62,7 @@ public class CadastroController implements Initializable {
             }
         });
 
-        ObservableList<Funcionario> listaOriginal = db.getFuncionarios();
+        ObservableList<Adicionar.Funcionario> listaOriginal = db.getFuncionarios();
         dadosFiltrados = new FilteredList<>(listaOriginal, p -> true);
 
         tabelaFuncionarios.getSortOrder().add(ID);
@@ -71,7 +71,7 @@ public class CadastroController implements Initializable {
         De.valueProperty().addListener((observable, oldValue, newValue) -> aplicarFiltros());
         Ate.valueProperty().addListener((observable, oldValue, newValue) -> aplicarFiltros());
 
-        SortedList<Funcionario> dadosOrdenados = new SortedList<>(dadosFiltrados);
+        SortedList<Adicionar.Funcionario> dadosOrdenados = new SortedList<>(dadosFiltrados);
         dadosOrdenados.comparatorProperty().bind(tabelaFuncionarios.comparatorProperty());
 
         tabelaFuncionarios.setItems(dadosOrdenados);
@@ -132,7 +132,7 @@ public class CadastroController implements Initializable {
 
     @FXML
     private void Editar(ActionEvent event) {
-        Funcionario selecionado = tabelaFuncionarios.getSelectionModel().getSelectedItem();
+        Adicionar.Funcionario selecionado = tabelaFuncionarios.getSelectionModel().getSelectedItem();
 
         if (selecionado == null) {
             exibirAlerta("Atenção", "Por favor, clique em um funcionário na tabela para poder editá-lo!", Alert.AlertType.WARNING);
@@ -163,7 +163,7 @@ public class CadastroController implements Initializable {
 
     @FXML
     private void Deletar(ActionEvent event) {
-        Funcionario selecionado = tabelaFuncionarios.getSelectionModel().getSelectedItem();
+        Adicionar.Funcionario selecionado = tabelaFuncionarios.getSelectionModel().getSelectedItem();
 
         if (selecionado == null) {
             exibirAlerta("Atenção", "Por favor, clique em um funcionário na tabela para poder deletá-lo!", Alert.AlertType.WARNING);
@@ -195,13 +195,13 @@ public class CadastroController implements Initializable {
 
     @FXML
     private void Reload(ActionEvent event) {
-        ObservableList<Funcionario> novaLista = db.getFuncionarios();
+        ObservableList<Adicionar.Funcionario> novaLista = db.getFuncionarios();
         dadosFiltrados = new FilteredList<>(novaLista, p -> true);
         Research.clear();
         De.setValue(null);
         Ate.setValue(null);
 
-        SortedList<Funcionario> dadosOrdenados = new SortedList<>(dadosFiltrados);
+        SortedList<Adicionar.Funcionario> dadosOrdenados = new SortedList<>(dadosFiltrados);
         dadosOrdenados.comparatorProperty().bind(tabelaFuncionarios.comparatorProperty());
 
 
