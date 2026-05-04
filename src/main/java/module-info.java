@@ -18,4 +18,6 @@ module org.example.demo {
     opens org.example.demo.view.login to javafx.fxml;
     exports org.example.demo.view.principal;
     opens org.example.demo.view.principal to javafx.fxml;
+    exports org.example.demo.view.DemostrativoPagamento;
+    opens org.example.demo.view.DemostrativoPagamento to javafx.fxml;
 }

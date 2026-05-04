@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="705.0" prefWidth="1365.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.view.DemostrativoPagamento.DemostrativoPagamentoController">
+    <children>
+        <AnchorPane prefHeight="43.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+
+                <Button layoutX="1312.0" layoutY="9.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" AnchorPane.rightAnchor="14.0">
+                    <graphic>
+                        <ImageView fitHeight="17.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Img/reload.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <HBox alignment="CENTER_RIGHT" layoutX="14.0" layoutY="9.0" spacing="10.0">
+                    <children>
+                        <TextField fx:id="Research" prefHeight="25.0" prefWidth="171.0" promptText="🔎 Pesquisar ID, Nome" />
+
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ano:" />
+                        <DatePicker fx:id="inicio" />
+
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mês:" />
+                        <DatePicker fx:id="fim" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
+                        <ComboBox fx:id="status" prefWidth="150.0" />
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+
+        <AnchorPane AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="43.0">
+            <children>
+                <TableView fx:id="tabelaPonto" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                        <TableColumn fx:id="colFuncID" prefWidth="75.0" style="-fx-alignment: Center;" text="ID" />
+                        <TableColumn fx:id="colNome" prefWidth="200.0" style="-fx-alignment: Center;" text="Nome" />
+                        <TableColumn fx:id="colData" prefWidth="120.0" style="-fx-alignment: Center;" text="Data Do Registro" />
+                        <TableColumn fx:id="colEntrada" prefWidth="116.0" style="-fx-alignment: Center;" text="Ent1" />
+                        <TableColumn fx:id="colSaida" prefWidth="126.0" style="-fx-alignment: Center;" text="Sai1" />
+                        <TableColumn fx:id="colEntrada2" prefWidth="137.0" style="-fx-alignment: Center;" text="Ent2" />
+                        <TableColumn fx:id="colSaida2" prefWidth="143.0" style="-fx-alignment: Center;" text="Sai2" />
+                        <TableColumn fx:id="colObs" minWidth="2.0" prefWidth="270.0" style="-fx-alignment: Center;" text="Observação" />
+                        <TableColumn fx:id="colStatus" minWidth="2.0" prefWidth="125.0" style="-fx-alignment: Center;" text="Status" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
+            </children>
+        </AnchorPane>
+
+        <AnchorPane prefHeight="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <Circle fill="DODGERBLUE" layoutX="31.0" layoutY="25.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                <Circle fill="#ffbd1f" layoutX="54.0" layoutY="25.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                <Circle fill="#60d028" layoutX="74.0" layoutY="25.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                <HBox alignment="CENTER_RIGHT" layoutX="1080.0" layoutY="15.0" prefHeight="25.0" prefWidth="320.0" spacing="10.0" AnchorPane.rightAnchor="14.0">
+                    <children>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #ff4d4d; -fx-text-fill: white;" text="Deletar" />
+                        <Button fx:id="Editar" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Editar" />
+
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #28c840; -fx-text-fill: white;" text="Adicionar" />
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

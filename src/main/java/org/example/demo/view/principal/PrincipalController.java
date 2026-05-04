@@ -119,9 +119,23 @@ public class PrincipalController {
 
 
     @FXML
-    private void DemostrativoPagamentos(ActionEvent event) {
-        System.out.println("Departamento");
+    private void DemostrativoPagamento(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/DemostrativoPagamento.fxml"));
+            Parent root = loader.load();
+            EspelhoPontoController controller = loader.getController();
+            controller.setUsuario(this.usuario);
+            Stage stage = new Stage();
+            stage.setTitle("Demostrativo De fPagamentos");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
     @FXML
     private void ReciboFerias(ActionEvent event) {
         System.out.println("Departamento");

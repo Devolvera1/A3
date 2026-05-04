@@ -43,7 +43,7 @@
 
                 <Button layoutX="14.0" layoutY="250.0" onAction="#EspelhoPonto" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Espelho de ponto" textAlignment="CENTER" textFill="WHITE" />
 
-                <Button layoutX="14.0" layoutY="250.0" onAction="#DemostrativoPagamentos" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Demostrativo de pagamento" textAlignment="CENTER" textFill="WHITE">
+                <Button layoutX="14.0" layoutY="250.0" onAction="#DemostrativoPagamento" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Demostrativo de pagamento" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="10.0" />
                </font></Button>
