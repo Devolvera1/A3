@@ -18,6 +18,7 @@ public class Login extends Application {
 
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
         stage.show();
     }

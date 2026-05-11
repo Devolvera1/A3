@@ -1,9 +1,6 @@
 package org.example.demo.util;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public class Departamento {
     private int id;
@@ -60,4 +57,41 @@ public class Departamento {
         public String getObservacao() { return observacao.get(); }
         public String getStatus() { return status.get(); }
     }
+    public static class HistoricoSalario {
+        private final IntegerProperty id = new SimpleIntegerProperty();
+        private final IntegerProperty funcionarioId = new SimpleIntegerProperty();
+        private final StringProperty nomeFuncionario = new SimpleStringProperty();
+        private final DoubleProperty salario = new SimpleDoubleProperty();
+        private final StringProperty dataInicio = new SimpleStringProperty();
+        private final StringProperty dataFim = new SimpleStringProperty();
+        private final StringProperty motivo = new SimpleStringProperty();
+
+        public HistoricoSalario(int id, int funcionarioId, String nomeFuncionario, double salario,
+                                String dataInicio, String dataFim, String motivo) {
+            this.id.set(id);
+            this.funcionarioId.set(funcionarioId);
+            this.nomeFuncionario.set(nomeFuncionario);
+            this.salario.set(salario);
+            this.dataInicio.set(dataInicio);
+            this.dataFim.set(dataFim);
+            this.motivo.set(motivo);
+        }
+
+        public int getId() { return id.get(); }
+        public int getFuncionarioId() { return funcionarioId.get(); }
+        public String getNomeFuncionario() { return nomeFuncionario.get(); }
+        public double getSalario() { return salario.get(); }
+        public String getDataInicio() { return dataInicio.get(); }
+        public String getDataFim() { return dataFim.get(); }
+        public String getMotivo() { return motivo.get(); }
+
+        public IntegerProperty idProperty() { return id; }
+        public IntegerProperty funcionarioIdProperty() { return funcionarioId; }
+        public StringProperty nomeFuncionarioProperty() { return nomeFuncionario; }
+        public DoubleProperty salarioProperty() { return salario; }
+        public StringProperty dataInicioProperty() { return dataInicio; }
+        public StringProperty dataFimProperty() { return dataFim; }
+        public StringProperty motivoProperty() { return motivo; }
+    }
+
 }

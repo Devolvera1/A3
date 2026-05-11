@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.example.demo.view.DemostrativoPagamento.DemostrativoPagamentoController;
 import org.example.demo.view.espelho.EspelhoPontoController;
 import org.example.demo.util.Usuario;
 
@@ -123,10 +124,10 @@ public class PrincipalController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/DemostrativoPagamento.fxml"));
             Parent root = loader.load();
-            EspelhoPontoController controller = loader.getController();
+            DemostrativoPagamentoController controller = loader.getController();
             controller.setUsuario(this.usuario);
             Stage stage = new Stage();
-            stage.setTitle("Demostrativo De fPagamentos");
+            stage.setTitle("Demostrativo De Pagamentos");
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
             stage.setScene(new Scene(root));
             stage.show();

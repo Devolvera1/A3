@@ -233,6 +233,92 @@ public class Database {
 
 
 
+    public ObservableList<Departamento.HistoricoSalario> buscarHistoricoSalarios(Usuario user) {
+        ObservableList<Departamento.HistoricoSalario> lista = FXCollections.observableArrayList();
+        boolean isAdmin = user.getFuncao().equalsIgnoreCase("ADMIN");
+
+        String sql = "SELECT h.*, f.nome FROM historicoSalarios h " +
+                "INNER JOIN funcionarios f ON h.funcionario_id = f.id";
+
+        if (!isAdmin) {
+            sql += " WHERE h.funcionario_id = ?";
+        }
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            if (!isAdmin) {
+                pstmt.setInt(1, user.getId());
+            }
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                lista.add(new Departamento.HistoricoSalario(
+                        rs.getInt("ID"),
+                        rs.getInt("funcionario_id"),
+                        rs.getString("nome"),
+                        rs.getDouble("salario"),
+                        rs.getString("dataInicio"),
+                        rs.getString("dataFim"),
+                        rs.getString("motivo")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+    public ObservableList<Departamento.HistoricoSalario> listarHistoricoSalarios(Usuario user) {
+        ObservableList<Departamento.HistoricoSalario> lista = FXCollections.observableArrayList();
+
+        boolean isAdmin = user.getFuncao().equalsIgnoreCase("ADMIN");
+
+        String sql = "SELECT h.*, f.nome FROM historicoSalarios h " +
+                "INNER JOIN funcionarios f ON h.funcionario_id = f.id";
+
+        if (!isAdmin) {
+            sql += " WHERE h.funcionario_id = ?";
+        }
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            if (!isAdmin) {
+                pstmt.setInt(1, user.getId());
+            }
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(new Departamento.HistoricoSalario(
+                            rs.getInt("ID"),
+                            rs.getInt("funcionario_id"),
+                            rs.getString("nome"),
+                            rs.getDouble("salario"),
+                            rs.getString("dataInicio"),
+                            rs.getString("dataFim"),
+                            rs.getString("motivo")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar histórico salarial: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+    public boolean deletarHistoricoSalario(int id) {
+        String sql = "DELETE FROM historicoSalarios WHERE ID = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
 
