@@ -231,8 +231,32 @@ public class Database {
         return lista;
     }
 
+    public ObservableList<Departamento.HistoricoSalario> getHistoricoSalarial() {
+        ObservableList<Departamento.HistoricoSalario> lista = FXCollections.observableArrayList();
 
+        String sql = "SELECT h.*, f.nome FROM historicoSalarios h " +
+                "INNER JOIN funcionarios f ON h.funcionario_id = f.id";
 
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                lista.add(new Departamento.HistoricoSalario(
+                        rs.getInt("ID"),
+                        rs.getInt("funcionario_id"),
+                        rs.getString("nome"),
+                        rs.getDouble("salario"),
+                        rs.getString("dataInicio"),
+                        rs.getString("dataFim"),
+                        rs.getString("motivo")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
     public ObservableList<Departamento.HistoricoSalario> buscarHistoricoSalarios(Usuario user) {
         ObservableList<Departamento.HistoricoSalario> lista = FXCollections.observableArrayList();
         boolean isAdmin = user.getFuncao().equalsIgnoreCase("ADMIN");

@@ -1,5 +1,6 @@
 package org.example.demo.view.DemostrativoPagamento;
 
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,11 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
+import org.example.demo.config.Database;
 import org.example.demo.util.Departamento;
 import org.example.demo.util.Usuario;
-import org.example.demo.config.Database;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,54 +21,64 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class DemostrativoPagamentoController implements Initializable {
-
     private final Database db = new Database();
     private Usuario usuarioLogado;
     private FilteredList<Departamento.HistoricoSalario> dadosFiltrados;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    @FXML private TableView<Departamento.HistoricoSalario> tabelaPonto;
+    @FXML private TableView<Departamento.HistoricoSalario> TabelaSalario;
+    @FXML private TableColumn<Departamento.HistoricoSalario, Integer> ID;
+    @FXML private TableColumn<Departamento.HistoricoSalario, String> Nome;
+    @FXML private TableColumn<Departamento.HistoricoSalario, String> Salario;
+    @FXML private TableColumn<Departamento.HistoricoSalario, String> DataInicio;
+    @FXML private TableColumn<Departamento.HistoricoSalario, String> DataFim;
+    @FXML private TableColumn<Departamento.HistoricoSalario, String> Motivo;
+
+    @FXML private Button Adicionar, Editar, Deletar;
     @FXML private TextField Research;
     @FXML private DatePicker inicio;
     @FXML private DatePicker fim;
-    @FXML private ComboBox<String> status;
-    @FXML private Button Editar;
-
-    @FXML private TableColumn<Departamento.HistoricoSalario, Integer> Id;
-    @FXML private TableColumn<Departamento.HistoricoSalario, String> nome;
-    @FXML private TableColumn<Departamento.HistoricoSalario, Double> salario;
-    @FXML private TableColumn<Departamento.HistoricoSalario, String> Datainicio;
-    @FXML private TableColumn<Departamento.HistoricoSalario, String> Datafim;
-    @FXML private TableColumn<Departamento.HistoricoSalario, String> Observação;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Id.setCellValueFactory(c -> c.getValue().idProperty().asObject());
-        nome.setCellValueFactory(c -> c.getValue().nomeFuncionarioProperty());
-        salario.setCellValueFactory(c -> c.getValue().salarioProperty().asObject());
-        Datainicio.setCellValueFactory(c -> c.getValue().dataInicioProperty());
-        Datafim.setCellValueFactory(c -> c.getValue().dataFimProperty());
-        Observação.setCellValueFactory(c -> c.getValue().motivoProperty());
+        ID.setCellValueFactory(c -> c.getValue().idProperty().asObject());
+        Nome.setCellValueFactory(c -> c.getValue().nomeFuncionarioProperty());
+        Salario.setCellValueFactory(c -> c.getValue().salarioProperty().asString());
+        DataInicio.setCellValueFactory(c -> c.getValue().dataInicioProperty());
+        DataFim.setCellValueFactory(c -> c.getValue().dataFimProperty());
+        Motivo.setCellValueFactory(c -> c.getValue().motivoProperty());
+        Research.textProperty().addListener((obs, antigo, novo) -> aplicarFiltro());
+        inicio.valueProperty().addListener((obs, antigo, novo) -> aplicarFiltro());
+        fim.valueProperty().addListener((obs, antigo, novo) -> aplicarFiltro());
 
-        LocalDate hoje = LocalDate.now();
-        inicio.setValue(hoje.withDayOfMonth(1));
-        fim.setValue(hoje.withDayOfMonth(hoje.lengthOfMonth()));
-
-        Research.textProperty().addListener((obs, old, novo) -> aplicarFiltro());
-        inicio.valueProperty().addListener((obs, old, novo) -> aplicarFiltro());
-        fim.valueProperty().addListener((obs, old, novo) -> aplicarFiltro());
+        TabelaSalario.setRowFactory(tv -> {
+            TableRow<Departamento.HistoricoSalario> row = new TableRow<>();
+            LocalDate hoje = LocalDate.now();
+            inicio.setValue(hoje.withDayOfMonth(1));
+            fim.setValue(hoje.withDayOfMonth(hoje.lengthOfMonth()));
+            Research.textProperty().addListener((obs, antigo, novo) -> aplicarFiltro());
+            inicio.valueProperty().addListener((obs, antigo, novo) -> aplicarFiltro());
+            fim.valueProperty().addListener((obs, antigo, novo) -> aplicarFiltro());
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    Editar(new ActionEvent());
+                }
+            });
+            return row;
+        });
     }
 
     public void setUsuario(Usuario user) {
         this.usuarioLogado = user;
         if (user != null) {
-            ObservableList<Departamento.HistoricoSalario> lista = db.listarHistoricoSalarios(user);
-            dadosFiltrados = new FilteredList<>(lista, p -> true);
-            tabelaPonto.setItems(dadosFiltrados);
+            dadosFiltrados = new FilteredList<>(db.getHistoricoSalarial(), p -> true);
+            TabelaSalario.setItems(dadosFiltrados);
             aplicarFiltro();
 
-            boolean naoAdmin = !user.getFuncao().equalsIgnoreCase("ADMIN");
-            Editar.setDisable(naoAdmin);
+            boolean naoEhAdmin = !user.getFuncao().equalsIgnoreCase("ADMIN");
+            Adicionar.setDisable(naoEhAdmin);
+            Editar.setDisable(naoEhAdmin);
+            Deletar.setDisable(naoEhAdmin);
         }
     }
 
@@ -77,57 +86,87 @@ public class DemostrativoPagamentoController implements Initializable {
         if (dadosFiltrados == null) return;
 
         dadosFiltrados.setPredicate(registro -> {
-            String textoBusca = Research.getText();
-            boolean bateComTexto = true;
-            if (textoBusca != null && !textoBusca.trim().isEmpty()) {
-                String buscaMinuscula = textoBusca.toLowerCase();
-                bateComTexto = String.valueOf(registro.getFuncionarioId()).contains(buscaMinuscula)
-                        || registro.getNomeFuncionario().toLowerCase().contains(buscaMinuscula);
+            String busca = Research.getText();
+            boolean textoBate = true;
+            if (busca != null && !busca.isEmpty()) {
+                String lower = busca.toLowerCase();
+                textoBate = registro.getNomeFuncionario().toLowerCase().contains(lower) ||
+                        String.valueOf(registro.getId()).contains(lower);
             }
 
-            LocalDate dataDe = inicio.getValue();
-            LocalDate dataAte = fim.getValue();
+            LocalDate dInicio = inicio.getValue();
+            LocalDate dFim = fim.getValue();
             boolean dataBate = true;
 
-            if (dataDe != null && dataAte != null) {
+            if (dInicio != null && dFim != null) {
                 try {
                     LocalDate dataReg = LocalDate.parse(registro.getDataInicio(), formatter);
-                    dataBate = !dataReg.isBefore(dataDe) && !dataReg.isAfter(dataAte);
+                    dataBate = !dataReg.isBefore(dInicio) && !dataReg.isAfter(dFim);
                 } catch (Exception e) {
-                    dataBate = true;
+                    dataBate = false;
                 }
             }
 
-            return bateComTexto && dataBate;
+            return textoBate && dataBate;
         });
     }
 
-
     @FXML
-    private void Reload(ActionEvent event) {
-        if (this.usuarioLogado != null) {
-            setUsuario(this.usuarioLogado);
-        }
-    }
-
-    private void abrirJanela(String fxml, String titulo) {
+    private void Adicionar(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/AdicionarDemostrativo.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
-            stage.setTitle(titulo);
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
             stage.setScene(new Scene(root));
             stage.showAndWait();
             Reload(null);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    @FXML
+    private void Editar(ActionEvent event) {
+        Departamento.HistoricoSalario selecionado = TabelaSalario.getSelectionModel().getSelectedItem();
+        if (selecionado == null) {
+            exibirAlerta("Atenção", "Selecione um registro para editar!", Alert.AlertType.WARNING);
+            return;
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/EditarDemostrativo.fxml"));
+            Parent root = loader.load();
+            EditarDemostrativoController controller = loader.getController();
+            controller.setDados(selecionado);
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            Reload(null);
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    @FXML
+    private void Deletar(ActionEvent event) {
+        Departamento.HistoricoSalario selecionado = TabelaSalario.getSelectionModel().getSelectedItem();
+        if (selecionado == null) return;
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Deseja excluir este histórico?", ButtonType.YES, ButtonType.NO);
+        if (alert.showAndWait().get() == ButtonType.YES) {
+            if (db.deletarHistoricoSalario(selecionado.getId())) {
+                Reload(null);
+            }
         }
     }
 
-    private void exibirAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
-        Alert alert = new Alert(tipo);
-        alert.setTitle(titulo);
-        alert.setContentText(mensagem);
-        alert.showAndWait();
+    @FXML
+    private void Reload(ActionEvent event) {
+        if (usuarioLogado != null) {
+            dadosFiltrados = new FilteredList<>(db.getHistoricoSalarial(), p -> true);
+            TabelaSalario.setItems(dadosFiltrados);
+            aplicarFiltro();
+        }
+    }
+
+    private void exibirAlerta(String t, String m, Alert.AlertType tipo) {
+        Alert a = new Alert(tipo); a.setTitle(t); a.setContentText(m); a.showAndWait();
     }
 }
