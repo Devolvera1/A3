@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.example.demo.view.DemostrativoPagamento.DemostrativoPagamentoController;
+import org.example.demo.view.Relatorio.Relatorio;
+import org.example.demo.view.Relatorio.RelatorioController;
 import org.example.demo.view.espelho.EspelhoPontoController;
 import org.example.demo.util.Usuario;
 
@@ -27,6 +29,8 @@ public class PrincipalController {
 
     @FXML
     private Button Cadastro;
+    @FXML
+    private Button Relatorio;
 
     private Usuario usuario;
 
@@ -50,8 +54,10 @@ public class PrincipalController {
 
         if (!usuario.getFuncao().equalsIgnoreCase("ADMIN")) {
             Cadastro.setDisable(true);
+            Relatorio.setDisable(true);
         } else {
             Cadastro.setDisable(false);
+            Relatorio.setDisable(false);
         }
     }
 
@@ -138,19 +144,43 @@ public class PrincipalController {
     }
 
     @FXML
-    private void ReciboFerias(ActionEvent event) {
-        System.out.println("Departamento");
+    private void Relatorio(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/Relatorio.fxml"));
+            Parent root = loader.load();
+            RelatorioController controller = loader.getController();
+            controller.setUsuario(this.usuario);
+            Stage stage = new Stage();
+            stage.setTitle("Relatório");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/example/demo/Img/logo.png")));
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
     @FXML
     private void AbrirConfiguracoes(ActionEvent event) {
-        System.out.println("Configurações");
+        exibirAlerta("Aviso", "Funcionalidade em desenvolvimento.", Alert.AlertType.INFORMATION);
     }
 
     @FXML
     private void AbrirSobre(ActionEvent event) {
-        System.out.println("Sobre");
+        String conteudo = "INTEGRANTES:\n"
+                + "• Breno Ramos dos Santos (RA: 823159781)\n"
+                + "• Diego Gomes de Souza (RA: 8222242618)\n"
+                + "• Guilherme dos Santos Coelho (RA: 823120490)\n"
+                + "• Guilherme Feitosa Santana (RA: 823111787)\n"
+                + "• Gustavo Henrique de Amorim (RA: 824156924)\n"
+                + "• Kaue Luiz Frambach (RA: 823148763)\n"
+                + "• Victor Henrique da Silva Perillo Brasil (RA: 823130525)\n\n"
+                + "https://github.com/Devolvera1/A3\n\n"
+                + "© 2026 Todos os direitos reservados.";
+
+        exibirAlerta("Sobre o Projeto", conteudo, Alert.AlertType.INFORMATION);
     }
 
     @FXML
@@ -170,6 +200,10 @@ public class PrincipalController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void exibirAlerta(String t, String m, Alert.AlertType tipo) {
+        Alert a = new Alert(tipo); a.setTitle(t); a.setContentText(m); a.showAndWait();
     }
 
 

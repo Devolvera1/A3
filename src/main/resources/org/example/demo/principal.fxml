@@ -53,8 +53,8 @@
                     </image>
                 </ImageView>
 
-                <Button layoutX="14.0" layoutY="410.0" onAction="#AbrirConfiguracoes" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Configurações" textAlignment="CENTER" textFill="WHITE" />
-                <ImageView fitHeight="18.0" fitWidth="23.0" layoutX="22.0" layoutY="416.0" pickOnBounds="true" preserveRatio="true">
+                <Button disable="true" layoutX="14.0" layoutY="410.0" onAction="#AbrirConfiguracoes" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Configurações" textAlignment="CENTER" textFill="WHITE" />
+                <ImageView disable="true" fitHeight="18.0" fitWidth="23.0" layoutX="22.0" layoutY="416.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@Img/configuracoes.png" />
                     </image>
@@ -79,7 +79,7 @@
                   <Image url="@Img/ponto.png" />
                </image>
             </ImageView>
-            <Button layoutX="14.0" layoutY="330.0" onAction="#ReciboFerias" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Recibo de férias" textAlignment="CENTER" textFill="WHITE" />
+            <Button fx:id="Relatorio" layoutX="14.0" layoutY="330.0" onAction="#Relatorio" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #3a7bfc; -fx-border-color: #FFFFFF; -fx-font-weight: Bold; -fx-alignment: Center;" text="Relatório" textAlignment="CENTER" textFill="WHITE" />
             <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="22.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Img/Departamentos.png" />
