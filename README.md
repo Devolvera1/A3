@@ -93,7 +93,11 @@ CoreRH/
 ├── pom.xml
 └── README.md
 ```
-
+---
+Logins de Teste
+Perfil	E-mail	Senha	Acesso
+ Administrador	admin -	123	Acesso Total
+ Usuário alice.silva -	123	- Acesso parcial
 ---
 
 ## Status do Projeto
