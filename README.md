@@ -1,75 +1,226 @@
-# CoreRH — Sistema de RH com Controle de Ponto
+# CoreRH - Sistema de Gestão de Recursos Humanos e Controle de Ponto
 
-O **CoreRH** é um sistema desktop para gerenciamento de recursos humanos e controle de ponto eletrônico, desenvolvido com foco em simplicidade, organização e controle de acesso por níveis de permissão.
+![Java](https://img.shields.io/badge/Java-21-orange)
+![JavaFX](https://img.shields.io/badge/JavaFX-25-blue)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-green)
+![Maven](https://img.shields.io/badge/Maven-Build-red)
+![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)
 
-O sistema permite o cadastro de funcionários, registro de jornadas de trabalho e acompanhamento do espelho de ponto, com distinção entre usuários administradores e comuns.
+## 📋 Sobre o Projeto
 
----
+O **CoreRH** é um sistema desktop desenvolvido para gerenciamento de Recursos Humanos e Controle de Ponto Eletrônico.
 
-## Tecnologias Utilizadas
+O projeto foi desenvolvido para a Unidade Curricular **Programação de Soluções Computacionais (A3)**, atendendo aos requisitos estabelecidos no edital da disciplina, incluindo:
 
-*  Java 21
-*  JavaFX 25 (Interface Gráfica)
-*  MySQL (Banco de Dados)
-*  Maven (Gerenciamento de Dependências)
-*  Scene Builder (Construção de Interfaces)
+* Interface gráfica desktop;
+* Controle de acesso por autenticação;
+* Banco de dados MySQL;
+* Múltiplos perfis de usuário;
+* Dashboard administrativo;
+* Operações CRUD;
+* Relatórios gerenciais.
 
----
+## 🌎 Objetivo de Desenvolvimento Sustentável (ODS)
 
-## Funcionalidades
+O projeto está alinhado ao:
+
+**ODS 8 – Trabalho Decente e Crescimento Econômico**
+
+O sistema auxilia organizações no gerenciamento de colaboradores, registro de jornadas de trabalho e controle administrativo, promovendo maior transparência e organização dos processos internos.
+
+## 🚀 Tecnologias Utilizadas
+
+* Java 21
+* JavaFX
+* MySQL
+* Maven
+* Scene Builder
+* JDBC
+
+## 🏗️ Arquitetura do Sistema
+
+O sistema foi organizado seguindo uma estrutura modular:
+
+```text
+src/main/java
+│
+├── config
+│   └── Database.java
+│
+├── util
+│   ├── Usuario.java
+│   ├── Cargo.java
+│   └── Departamento.java
+│
+├── view
+│   ├── login
+│   ├── principal
+│   ├── cadastro
+│   ├── ponto
+│   ├── espelho
+│   ├── demostrativoPagamento
+│   └── relatorio
+```
+
+## 🔐 Controle de Acesso
+
+O sistema possui autenticação obrigatória.
 
 ### Administrador
 
-* CRUD completo de funcionários
-* Visualização de todos os registros de ponto
-* Controle total sobre o sistema
+* Cadastro de funcionários
+* Edição de funcionários
+* Exclusão de funcionários
+* Controle completo do sistema
+* Visualização de relatórios
+* Gestão dos registros de ponto
 
 ### Usuário Comum
 
-* Registro de ponto eletrônico
-* Consulta do próprio espelho de ponto
-* Acesso restrito (sem permissões de edição/exclusão)
+* Registro de ponto
+* Consulta de espelho de ponto
+* Consulta de demonstrativos
+* Acesso limitado
 
-### Controle de Jornada
+## 📌 Funcionalidades Implementadas
 
-* Identificação automática de status:
+### Login
 
-  *  Completo
-  *  Pendente
-  *  Inconsistente
+* Autenticação de usuários
+* Controle de permissões
 
----
+### Dashboard
 
-## Telas do Sistema
+* Tela principal administrativa
+* Navegação entre módulos
 
-* Tela de Login
-* Painel Principal (Admin) 
-* Cadastro de Funcionários (CRUD) 
-* Espelho de Ponto 
-* Registro de Ponto (Usuário) 
+### Cadastro de Funcionários
 
----
+CRUD completo:
 
-## Como Executar o Projeto
+* Criar funcionário
+* Consultar funcionário
+* Atualizar funcionário
+* Excluir funcionário
 
-### 1. Clonar o repositório
+### Controle de Ponto
+
+* Registro de entrada
+* Registro de saída
+* Controle de jornada
+
+### Espelho de Ponto
+
+* Consulta de registros
+* Alteração de informações autorizadas
+
+### Demonstrativo de Pagamento
+
+* Cadastro
+* Consulta
+* Alteração
+* Exclusão
+
+### Relatórios
+
+* Emissão de relatórios administrativos
+* Consulta consolidada de informações
+
+## 📊 CRUDs Implementados
+
+O edital exige no mínimo 3 CRUDs.
+
+CRUDs presentes no sistema:
+
+1. Funcionários
+2. Espelho de Ponto
+3. Demonstrativo de Pagamento
+
+## 🗄️ Banco de Dados
+
+Banco utilizado:
+
+**MySQL**
+
+Script disponível em:
+
+```text
+SQLFILES/sql final.sql
+```
+
+Administrador cadastrado diretamente no banco de dados, conforme solicitado no edital.
+
+## 🖥️ Telas do Sistema
+
+### Login
+
+* Login.fxml
+
+### Dashboard
+
+* principal.fxml
+
+### Cadastro de Funcionários
+
+* Cadastro.fxml
+
+### Registro de Ponto
+
+* MarcaPonto.fxml
+
+### Espelho de Ponto
+
+* EspelhoPonto.fxml
+
+### Demonstrativo de Pagamento
+
+* DemostrativoPagamento.fxml
+
+### Relatórios
+
+* Relatorio.fxml
+
+## 📂 Estrutura do Projeto
+
+```text
+CoreRH
+│
+├── src
+├── SQLFILES
+├── resources
+├── pom.xml
+├── CoreRh.exe
+├── video do software.mp4
+└── README.md
+```
+
+## ▶️ Como Executar
+
+### 1. Clonar o Repositório
 
 ```bash
-git clone https://github.com/Devolvera1/A3
+git clone https://github.com/Devolvera1/A3.git
 ```
 
 ### 2. Configurar o Banco de Dados
 
-* Instale o MySQL
-* Crie o banco de dados
-* Execute os scripts disponíveis na pasta `SQL FILES`
-* Configure as credenciais no projeto Java
+* Instalar MySQL
+* Criar banco de dados
+* Executar:
 
----
+```sql
+SQLFILES/sql final.sql
+```
 
-### 3. Executar o sistema
+* Configurar usuário e senha no arquivo:
 
-Via terminal:
+```java
+config/Database.java
+```
+
+### 3. Executar o Sistema
+
+Via Maven:
 
 ```bash
 mvn javafx:run
@@ -77,51 +228,47 @@ mvn javafx:run
 
 Ou:
 
-* Abra no **IntelliJ IDEA**
-* Aguarde o Maven baixar as dependências
-* Execute a classe principal (`Login`)
+* Abrir no IntelliJ IDEA
+* Atualizar dependências Maven
+* Executar a tela de Login
 
----
+## 👥 Usuários de Teste
 
-## Estrutura do Projeto
+| Perfil        | Usuário     | Senha |
+| ------------- | ----------- | ----- |
+| Administrador | admin       | 123   |
+| Usuário       | alice.silva | 123   |
 
+## 🎥 Demonstração
+
+O projeto contém:
+
+* Vídeo demonstrativo
+* Apresentação em PowerPoint
+* Executável Windows (.exe)
+
+Arquivos disponíveis na raiz do projeto:
+
+```text
+video do software.mp4
+apresentaçãoJava.pptx
+CoreRh.exe
 ```
-CoreRH/
-├── src/
-├── resources/
-├── SQL FILES/
-├── pom.xml
-└── README.md
-```
----
-Logins de Teste
-Perfil	E-mail	Senha	Acesso
- Administrador	admin -	123	Acesso Total
- Usuário alice.silva -	123	- Acesso parcial
----
 
-## Status do Projeto
+## 📈 Status do Projeto
 
-Em desenvolvimento
+Em desenvolvimento.
 
----
+## 👨‍💻 Desenvolvedor
 
-## Licença
+**Guilherme Feitosa Santana**
 
-Este projeto está sob a licença MIT.
+GitHub:
+https://github.com/Devolvera1
 
----
+Contato:
+[Contato.guilhermefsantana@gmail.com](mailto:Contato.guilhermefsantana@gmail.com)
 
-## Contato
+## 📄 Licença
 
-Email: **[Contato.guilhermefsantana@gmail.com](mailto:Contato.guilhermefsantana@gmail.com)**
-
----
-
-## Observações
-
-* Usuários não administradores possuem acesso restrito ao sistema 
-
----
-
-Se quiser, posso dar um próximo passo e deixar isso **nível portfólio top (com badges, gifs, roadmap e arquitetura)** — fica bem forte pra LinkedIn e recrutador.
+Projeto acadêmico desenvolvido para fins educacionais na Universidade São Judas Tadeu.
