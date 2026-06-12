@@ -6,7 +6,7 @@
 ![Maven](https://img.shields.io/badge/Maven-Build-red)
 ![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)
 
-## 📋 Sobre o Projeto
+## Sobre o Projeto
 
 O **CoreRH** é um sistema desktop desenvolvido para gerenciamento de Recursos Humanos e Controle de Ponto Eletrônico.
 
@@ -20,7 +20,7 @@ O projeto foi desenvolvido para a Unidade Curricular **Programação de Soluçõ
 * Operações CRUD;
 * Relatórios gerenciais.
 
-## 🌎 Objetivo de Desenvolvimento Sustentável (ODS)
+## Objetivo de Desenvolvimento Sustentável (ODS)
 
 O projeto está alinhado ao:
 
@@ -28,7 +28,7 @@ O projeto está alinhado ao:
 
 O sistema auxilia organizações no gerenciamento de colaboradores, registro de jornadas de trabalho e controle administrativo, promovendo maior transparência e organização dos processos internos.
 
-## 🚀 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 * Java 21
 * JavaFX
@@ -37,7 +37,7 @@ O sistema auxilia organizações no gerenciamento de colaboradores, registro de 
 * Scene Builder
 * JDBC
 
-## 🏗️ Arquitetura do Sistema
+## Arquitetura do Sistema
 
 O sistema foi organizado seguindo uma estrutura modular:
 
@@ -62,7 +62,7 @@ src/main/java
 │   └── relatorio
 ```
 
-## 🔐 Controle de Acesso
+## Controle de Acesso
 
 O sistema possui autenticação obrigatória.
 
@@ -82,7 +82,7 @@ O sistema possui autenticação obrigatória.
 * Consulta de demonstrativos
 * Acesso limitado
 
-## 📌 Funcionalidades Implementadas
+## Funcionalidades Implementadas
 
 ### Login
 
@@ -126,7 +126,7 @@ CRUD completo:
 * Emissão de relatórios administrativos
 * Consulta consolidada de informações
 
-## 📊 CRUDs Implementados
+## CRUDs Implementados
 
 O edital exige no mínimo 3 CRUDs.
 
@@ -136,7 +136,7 @@ CRUDs presentes no sistema:
 2. Espelho de Ponto
 3. Demonstrativo de Pagamento
 
-## 🗄️ Banco de Dados
+## Banco de Dados
 
 Banco utilizado:
 
@@ -150,7 +150,7 @@ SQLFILES/sql final.sql
 
 Administrador cadastrado diretamente no banco de dados, conforme solicitado no edital.
 
-## 🖥️ Telas do Sistema
+## Telas do Sistema
 
 ### Login
 
@@ -180,7 +180,7 @@ Administrador cadastrado diretamente no banco de dados, conforme solicitado no e
 
 * Relatorio.fxml
 
-## 📂 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```text
 CoreRH
@@ -194,7 +194,7 @@ CoreRH
 └── README.md
 ```
 
-## ▶️ Como Executar
+## Como Executar
 
 ### 1. Clonar o Repositório
 
@@ -232,14 +232,14 @@ Ou:
 * Atualizar dependências Maven
 * Executar a tela de Login
 
-## 👥 Usuários de Teste
+## Usuários de Teste
 
 | Perfil        | Usuário     | Senha |
 | ------------- | ----------- | ----- |
 | Administrador | admin       | 123   |
 | Usuário       | alice.silva | 123   |
 
-## 🎥 Demonstração
+## Demonstração
 
 O projeto contém:
 
@@ -255,11 +255,11 @@ apresentaçãoJava.pptx
 CoreRh.exe
 ```
 
-## 📈 Status do Projeto
+## Status do Projeto
 
 Em desenvolvimento.
 
-## 👨‍💻 Desenvolvedor
+## Desenvolvedor
 
 **Guilherme Feitosa Santana**
 
@@ -269,6 +269,6 @@ https://github.com/Devolvera1
 Contato:
 [Contato.guilhermefsantana@gmail.com](mailto:Contato.guilhermefsantana@gmail.com)
 
-## 📄 Licença
+## Licença
 
 Projeto acadêmico desenvolvido para fins educacionais na Universidade São Judas Tadeu.
